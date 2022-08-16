@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
+
+<!-- Navbar -->
     <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
 
         <div class="navbar-brand">
@@ -25,8 +27,11 @@
 
         <div class="navbar-menu" id="nav-links">
             <div class="navbar-end">
-                <!-- Navbar Stuff Goes Here in this format:
-                <a class="navbar-item" id="create-account" href="/registration.html">Create Account</a> -->
+                <!-- Navbar Stuff Goes Here in this format: -->
+                <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
+                <a class="navbar-item" id="my-account">My Account</a>
+                <a class="navbar-item" id="transfer-money">Transfer Money</a>
+
             </div>
             <div class="navbar-item">
                 <div class="buttons">
@@ -40,7 +45,20 @@
               </div>
         </div>
     </nav>
+
+<!-- Main Body-->
     <h1 class="is-size-1 has-text-centered">Hello World</h1>
+    
+    <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
+      adding 'is-half' or 'is-6' to the class does the same thing
+      so class="column is-half" could take up half the screen
+      very useful for centering things on the screen (empty column on each side with active column in the middle)-->
+
+    <div class="columns">
+      <div class="column"></div>
+      <div class="column"></div>
+      <div class="column"></div>
+    </div>
     
 </body>
 </html>
