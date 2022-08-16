@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <script src="header.js" defer></script>
-    <script src="index.js" defer></script>
+    <script src="user-page.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
@@ -48,7 +48,7 @@
     </nav>
 
 <!-- Main Body-->
-    <h1 class="is-size-1 has-text-centered">Hello World</h1>
+    <h1 class="is-size-1 has-text-centered" id="hello">Hello World</h1>
     
     <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
       adding 'is-half' or 'is-6' to the class does the same thing
@@ -56,9 +56,56 @@
       very useful for centering things on the screen (empty column on each side with active column in the middle)-->
 
     <div class="columns">
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
+        <div class="column is-1"></div>
+    <!-- User Info-->
+        <div class="column is-3">
+            <div class="box">
+                <h1 class="is-size-3">User Info</h1>
+                <p>
+                    <span>Name: </span>
+                    <span id="name"></span>
+                </p>
+                <p>
+                    <span>Email address: </span>
+                    <span id="email"></span>
+                </p>
+                <p>
+                    <span>Primary phone: </span>
+                    <span id="phone"></span>
+                </p>
+            </div>
+        </div>
+    <!-- Account Info-->
+        <div class="column is-7">
+            <div class="box" id="accounts-list">
+                <h1 class="is-size-3">Accounts</h1>
+                <div class="box"> 
+                    <div class="columns">
+                        <div class="column is-three-fifths">
+                            <p>
+                            <span class="is-size-4">
+                                Account 1
+                            </span>
+                            <span>
+                                ###########
+                            </span>
+                            </p>
+                            <p>
+                            acct type
+                            </p>
+                        </div>
+                        <div class="column is-size-2 is-two-fifths">
+                            $50.00
+                        </div>
+                    </div>
+                        
+                </div>
+                <div class="box"> 
+                    <h2>Account 2</h2>
+                </div>
+            </div>
+        </div>
+        <div class="column is-1"></div>
     </div>
     
 </body>
