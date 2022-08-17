@@ -47,14 +47,14 @@ function addAccounts(accts){
         let cols = document.createElement('div');
         cols.classList.add('columns');
         let col1 = document.createElement('div');
-        col1.classList.add('column', 'is-three-fifths');
+        col1.classList.add('column', 'is-two-fifths', 'has-text-centered-mobile');
         
         let p1 = document.createElement('p');
         let header = document.createElement('span');
         header.classList.add('is-size-4');
         header.innerHTML = "Account";
         let acctNum = document.createElement('span');
-        acctNum.classList.add('px-5');
+        acctNum.classList.add('px-5', 'is-size-4');
         acctNum.innerHTML = acct.accountId; 
         p1.appendChild(header)
         p1.appendChild(acctNum)
@@ -66,11 +66,32 @@ function addAccounts(accts){
         col1.appendChild(p2);
 
         let col2 = document.createElement('div');
-        col2.classList.add('column', 'is-size-2', 'is-two-fifths');
+        col2.classList.add('column', 'is-size-3', 'has-text-centered-mobile', 'is-one-fifths-tablet', 'is-two-fifths-desktop');
         col2.innerHTML = `\$${(acct.balance/100).toFixed(2)}`; //------------check -----------------------
+
+        let col3 = document.createElement('div');
+        col3.classList.add('column', 'is-two-fifths-tablet', 'is-one-fifth-desktop', 'has-text-centered-mobile');
+
+        let reqMon = document.createElement('div');
+        let sendMon = document.createElement('div');
+
+
+        reqMon.innerHTML = `<button class="button is-link my-2" id="${acct.accountId}">Request Money</button>`;
+        reqMon.addEventListener('click', (e) => {
+            console.log(`clicked "request money" for account ${e.target.id}`)
+        })
+        sendMon.innerHTML = `<button class="button is-primary my-2" id="${acct.accountId}">Send Money</button>`;
+        sendMon.addEventListener('click', (e) => {
+            console.log(`clicked "send money" for account ${e.target.id}`)
+        })
+
+        col3.appendChild(reqMon);
+        col3.appendChild(sendMon);
+        
 
         cols.appendChild(col1);
         cols.appendChild(col2);
+        cols.appendChild(col3);
 
         box.appendChild(cols);
 
