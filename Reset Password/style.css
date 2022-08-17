@@ -1,0 +1,16 @@
+button, input {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  #alert {
+    display: none;
+    color: red;
+    margin-bottom: 10px;
+  }
+  h1{
+    text-align: center;
+  }
+  a{
+    text-decoration: none;
+  }
