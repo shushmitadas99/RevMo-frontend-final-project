@@ -1,4 +1,4 @@
-let submitButton = document.getElementById("submit-btn");
+let submitButton = document.getElementById("submit-btn"); 
 let typeIdInput = document.getElementById("type-id-input");
 let amountInput = document.getElementById('amount-input');
 let confirmation = document.getElementById('error-messages');
