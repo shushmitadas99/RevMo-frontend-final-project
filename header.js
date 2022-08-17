@@ -1,4 +1,5 @@
 const url = "127.0.0.1";
+
 console.log("header.js");
 
 let logoutBtn = document.getElementById('logout-btn');
