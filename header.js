@@ -32,8 +32,9 @@ window.addEventListener('load', (e) => {
         transferMoney.classList.add('is-hidden');
     }
 })
-logoutBtn.addEventListener('click', async (e) => 
-    {
+logoutBtn.addEventListener('click', async (e) => {
+    console.log('click logout');
+    
         let result = await fetch(`http://${url}:8080/logout`, {
             'method': 'POST', 
             'credentials': 'include',
@@ -41,9 +42,10 @@ logoutBtn.addEventListener('click', async (e) =>
                 'Access-Control-Allow-Origin': '*'
             }
         })
-        sessionStorage.clear();
+        console.log(result.status);
         e.preventDefault();
         if (result.status === 201) {
+            sessionStorage.clear();
             window.location.href = "./index.html"
 
         }

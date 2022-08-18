@@ -34,6 +34,9 @@ window.addEventListener('load', async () => {
             addAccounts(data.accounts);
     
         } catch(err) {
+            
+            accountsList.innerHTML = "";
+            accountsList.innerHTML = "You are not logged in!";
             console.log(err);
         } 
 
@@ -72,22 +75,29 @@ function addAccounts(accts){
         let col3 = document.createElement('div');
         col3.classList.add('column', 'is-two-fifths-tablet', 'is-one-fifth-desktop', 'has-text-centered-mobile');
 
-        let reqMon = document.createElement('div');
-        let sendMon = document.createElement('div');
+        let acctPage = document.createElement('div');
+        acctPage.innerHTML =  `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Account</button>`;
+        acctPage.addEventListener('click', (e) => {
+                console.log(`clicked "view account" for account ${e.target.id}`)
+            })
+
+        // let reqMon = document.createElement('div');
+        // let sendMon = document.createElement('div');
 
 
-        reqMon.innerHTML = `<button class="button is-link my-2" id="${acct.accountId}">Request Money</button>`;
-        reqMon.addEventListener('click', (e) => {
-            console.log(`clicked "request money" for account ${e.target.id}`)
-        })
-        sendMon.innerHTML = `<button class="button is-primary my-2" id="${acct.accountId}">Send Money</button>`;
-        sendMon.addEventListener('click', (e) => {
-            console.log(`clicked "send money" for account ${e.target.id}`)
-        })
+        // reqMon.innerHTML = `<button class="button is-link my-2" id="${acct.accountId}">Request Money</button>`;
+        // reqMon.addEventListener('click', (e) => {
+        //     console.log(`clicked "request money" for account ${e.target.id}`)
+        // })
+        // sendMon.innerHTML = `<button class="button is-primary my-2" id="${acct.accountId}">Send Money</button>`;
+        // sendMon.addEventListener('click', (e) => {
+        //     console.log(`clicked "send money" for account ${e.target.id}`)
+        // })
 
-        col3.appendChild(reqMon);
-        col3.appendChild(sendMon);
-        
+        col3.appendChild(acctPage);
+
+        // col3.appendChild(reqMon);
+        // col3.appendChild(sendMon);
 
         cols.appendChild(col1);
         cols.appendChild(col2);
