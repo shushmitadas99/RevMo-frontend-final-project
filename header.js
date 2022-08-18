@@ -44,7 +44,7 @@ logoutBtn.addEventListener('click', async (e) =>
         sessionStorage.clear();
         e.preventDefault();
         if (result.status === 201) {
-            window.location.href = "./home.html"
+            window.location.href = "./index.html"
 
         }
     }
