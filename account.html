@@ -50,20 +50,50 @@
     </nav>
 
 <!-- Main Body-->
-    <h1 class="is-size-1 has-text-centered">Hello World</h1>
     
     <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
       adding 'is-half' or 'is-6' to the class does the same thing
       so class="column is-half" could take up half the screen
       very useful for centering things on the screen (empty column on each side with active column in the middle)
+    -->
     
-      When you make a box, to separate it from the header, add 'my-4' to the class list-->
-
-    <div class="columns">
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
+    <div class="columns box m-4 has-text-centered-mobile">
+        <div class="column">
+            <p>Account </p>
+            <p id="account-number"> ########### </p>
+            
+        </div>
+        <div class="column">
+            <span id="account-type">acct type</span>
+        </div>
+        <div class="column">
+            <span class="is-size-4" id="account-amount">$50.00 </span>
+        </div>
+        <div class="column">
+            <button class="button is-link my-1" id="request-transfer">Request Money</button>
+            <button class="button is-primary my-1" id="send-money">Send Money</button>
+        </div>
+   
     </div>
+    <div class="box m-4">
+        <h1 class="is-size-3">Transactions</h1>
+
+        <table>
+            <thead>
+                <tr class="has-text-centered">
+                    <th>Date</th> <!--completed else requested-->
+                    <th>Type</th> <!-- income/expense-->
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                  </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+  
     
 </body>
 </html>
