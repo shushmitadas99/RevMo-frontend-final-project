@@ -78,8 +78,10 @@ function addAccounts(accts){
         let acctPage = document.createElement('div');
         acctPage.innerHTML =  `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Account</button>`;
         acctPage.addEventListener('click', (e) => {
-                console.log(`clicked "view account" for account ${e.target.id}`)
-            })
+            sessionStorage.setItem("account", e.target.id);
+            window.location.href = './account.html';
+            console.log(`clicked "view account" for account ${e.target.id}`)
+        })
 
         // let reqMon = document.createElement('div');
         // let sendMon = document.createElement('div');

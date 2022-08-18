@@ -8,7 +8,7 @@
     <title>Home</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
 
     <script defer src="./header.js"></script>
-    <script defer src="./index.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
+    <script defer src="/account.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
@@ -57,42 +57,69 @@
       very useful for centering things on the screen (empty column on each side with active column in the middle)
     -->
     
-    <div class="columns box m-4 has-text-centered-mobile">
-        <div class="column">
-            <p>Account </p>
-            <p id="account-number"> ########### </p>
-            
-        </div>
-        <div class="column">
-            <span id="account-type">acct type</span>
-        </div>
-        <div class="column">
-            <span class="is-size-4" id="account-amount">$50.00 </span>
-        </div>
-        <div class="column">
-            <button class="button is-link my-1" id="request-transfer">Request Money</button>
-            <button class="button is-primary my-1" id="send-money">Send Money</button>
-        </div>
-   
-    </div>
-    <div class="box m-4">
-        <h1 class="is-size-3">Transactions</h1>
+        <div class="tile is-ancestor m-4 is-vertical">
+            <div class="tile is-parent box">
+                <div class="tile is-child" id="user-list">
+                    <p class="is-underlined">Users</p>
+                </div>
+                <div class="tile is-child">
+                    <p>Account </p>
+                    <p id="account-number"> ########### </p>
+                    
+                </div>
+                <div class="tile is-child">
+                    <span id="account-type">acct type</span>
+                </div>
+                <div class="tile is-child">
+                    <span class="is-size-4" id="account-amount">$50.00 </span>
+                </div>
+            </div>
+    
+        
+            <div class="tile is-parent">
+                <div class="tile is-child is-3 box has-text-centered">
+                    <p>
+                        <button class="button is-light my-1" id="request-transfer">Request Money</button>
+                    </p>
+                    <p>
+                        <button class="button is-light my-1" id="send-money">Send Money</button>
+                    </p>
+                    <!-- <p>
+                        <button class="button is-light my-1" id="add-user">Add User</button>
+                    </p>
+                    <p>
+                        <button class="button is-light my-1" id="remove-user">Remove User</button>
+                    </p> -->
+                    <p>---</p>
+                    
+                    <p>
+                        <button class="button is-danger my-1" id="delete-account">Delete Account</button>
+                    </p>
 
-        <table>
-            <thead>
-                <tr class="has-text-centered">
-                    <th>Date</th> <!--completed else requested-->
-                    <th>Type</th> <!-- income/expense-->
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                  </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
+                    
+                </div>
+                
+                <div class="tile is-child is-9 box">
+                    <h1 class="is-size-3">Transactions</h1>
+        
+                    <table>
+                        <thead>
+                            <tr class="has-text-centered">
+                                <th>Date</th> <!--completed else requested-->
+                                <th>Type</th> <!-- income/expense-->
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
   
     
 </body>
