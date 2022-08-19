@@ -5,6 +5,9 @@ let confirmation = document.getElementById('error-messages');
 let idButtons = document.querySelectorAll('input[name="account-type-id"]');
 
 
+Add account
+
+
 submitButton.addEventListener('click', async () => {
   let selectedRadioButton;
   for (let radioBtn of idButtons) {

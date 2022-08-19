@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="has-background-grey-light">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
+
+    <script defer src="./header.js"></script>
+    <script defer src="/account.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<!-- Navbar -->
+    <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
+
+        <div class="navbar-brand">
+          <a href="./index.html" class="navbar-item">
+              <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
+          </a>
+  
+          <a class="navbar-burger" id="burger">
+              <span></span>
+              <span></span>   
+              <span></span>
+          </a> 
+        </div>
+
+        <div class="navbar-menu" id="nav-links">
+            <div class="navbar-end">
+                <!-- Navbar Stuff Goes Here in this format: -->
+                <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
+                <a href="/user-page.html" class="navbar-item" id="my-account">My Account</a>
+                <a class="navbar-item" id="transfer-money">Transfer Money</a>
+
+            </div>
+            <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button is-info" href="/login.html" id="login-btn">
+                    <strong>Log in</strong>
+                  </a>
+                  <a class="button is-info" id="logout-btn">
+                    Log out
+                  </a>
+                </div>
+              </div>
+        </div>
+    </nav>
+
+<!-- Main Body-->
+    
+    <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
+      adding 'is-half' or 'is-6' to the class does the same thing
+      so class="column is-half" could take up half the screen
+      very useful for centering things on the screen (empty column on each side with active column in the middle)
+    -->
+    
+        <div class="tile is-ancestor m-4 is-vertical">
+            <div class="tile is-parent box">
+                <div class="tile is-child" id="user-list">
+                    <p class="is-underlined">Users</p>
+                </div>
+                <div class="tile is-child">
+                    <p>Account </p>
+                    <p id="account-number"> ########### </p>
+                    
+                </div>
+                <div class="tile is-child">
+                    <span id="account-type">acct type</span>
+                </div>
+                <div class="tile is-child">
+                    <span class="is-size-4" id="account-amount">$50.00 </span>
+                </div>
+            </div>
+    
+        
+            <div class="tile is-parent">
+                <div class="tile is-child is-3 box has-text-centered">
+                    <p>
+                        <button class="button is-light my-1" id="request-transfer">Request Money</button>
+                    </p>
+                    <p>
+                        <button class="button is-light my-1" id="send-money">Send Money</button>
+                    </p>
+                    <!-- <p>
+                        <button class="button is-light my-1" id="add-user">Add User</button>
+                    </p>
+                    <p>
+                        <button class="button is-light my-1" id="remove-user">Remove User</button>
+                    </p> -->
+                    <p>---</p>
+                    
+                    <p>
+                        <button class="button is-danger my-1" id="delete-account">Delete Account</button>
+                    </p>
+
+                    
+                </div>
+                
+                <div class="tile is-child is-9 box">
+                    <h1 class="is-size-3">Transactions</h1>
+        
+                    <table>
+                        <thead>
+                            <tr class="has-text-centered">
+                                <th>Date</th> <!--completed else requested-->
+                                <th>Type</th> <!-- income/expense-->
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+  
+    
+</body>
+</html>
