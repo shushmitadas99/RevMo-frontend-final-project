@@ -14,3 +14,7 @@ button, input {
   a{
     text-decoration: none;
   }
+  .sign_up{
+    height:auto; 
+    padding:3px 0; 
+  }
