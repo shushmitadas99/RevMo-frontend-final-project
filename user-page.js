@@ -76,7 +76,7 @@ function addAccounts(accts){
         col3.classList.add('column', 'is-two-fifths-tablet', 'is-one-fifth-desktop', 'has-text-centered-mobile');
 
         let acctPage = document.createElement('div');
-        acctPage.innerHTML =  `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Account</button>`;
+        acctPage.innerHTML =  `<button class="button is-info is-light has-text-weight-semibold my-2" id="view-account-${acct.accountId}">View Account</button>`;
         acctPage.addEventListener('click', (e) => {
                 console.log(`clicked "view account" for account ${e.target.id}`)
             })
