@@ -1,9 +1,13 @@
+console.log("account.js")
 let acctNum = document.getElementById('account-number');
 let acctType = document.getElementById('account-type');
 let acctAmount = document.getElementById('account-amount');
+let userList = document.getElementById('user-list')
+let requestMoney = document.getElementById('request-transfer');
+let sendMoney = document.getElementById('send-money');
+let addUser = document.getElementById('add-user');
+let removeUser = document.getElementById('remove-user');
 
-<<<<<<< Updated upstream
-=======
 
 let account = sessionStorage.getItem("account");
 console.log(account);
@@ -37,6 +41,7 @@ window.addEventListener('load', async () => {
                 userList.appendChild(cell);
             }
         }
+
         
 
         let transx = await fetch(`http://${url}:8080/`)
@@ -62,4 +67,8 @@ transactionDDown.forEach((item) => {
         tag.innerHTML = text;
     })
 })
->>>>>>> Stashed changes
+
+
+    }
+})
+
