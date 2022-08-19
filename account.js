@@ -69,6 +69,3 @@ transactionDDown.forEach((item) => {
 })
 
 
-    }
-})
-
