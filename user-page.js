@@ -6,7 +6,9 @@ let nameDiv = document.getElementById('name');
 let emailDiv = document.getElementById('email');
 let phoneDiv = document.getElementById('phone');
 let hello = document.getElementById('hello');
-let userId = sessionStorage.getItem('userId')
+let userId = sessionStorage.getItem('userId');
+let incomeBtn = document.getElementById('my-income');
+
 
 window.addEventListener('load', async () => {
     console.log('in window load block load-test.js');
@@ -76,7 +78,7 @@ function addAccounts(accts){
         col3.classList.add('column', 'is-two-fifths-tablet', 'is-one-fifth-desktop', 'has-text-centered-mobile');
 
         let acctPage = document.createElement('div');
-        acctPage.innerHTML =  `<button class="button is-info is-light has-text-weight-semibold my-2" id="view-account-${acct.accountId}">View Account</button>`;
+        acctPage.innerHTML =  `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Account</button>`;
         acctPage.addEventListener('click', (e) => {
             sessionStorage.setItem("account", e.target.id);
             window.location.href = './account.html';
@@ -110,4 +112,11 @@ function addAccounts(accts){
         accountsList.appendChild(box);
 
     }
+
+    incomeBtn.addEventListener('click', () => {
+        window.location.href="/income.html"
+    })
+
+
 }
+
