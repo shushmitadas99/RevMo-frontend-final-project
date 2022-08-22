@@ -6,6 +6,24 @@ let idButtons = document.querySelectorAll('input[name="account-type-id"]');
 let removeButton = document.getElementById("remove-btn"); 
 let accountId = document.getElementById("account-id");
 let accountIdInput = document.getElementById("account-id-input");
+let emailInput = document.getElementById("email-input");
+let searchEmailButton = document.getElementById('search-email-btn')
+
+
+// Set active user
+
+searchEmailButton.addEventListener("click", function(){
+  sessionStorage.setItem("email", emailInput.value)
+});
+
+let email = sessionStorage.getItem("email");
+
+
+
+
+
+
+
 
 // Add account
 
