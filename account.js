@@ -8,8 +8,10 @@ let sendMoney = document.getElementById('send-money');
 let addUser = document.getElementById('add-user');
 let removeUser = document.getElementById('remove-user');
 
+
 let account = sessionStorage.getItem("account");
 console.log(account);
+
 
 
 window.addEventListener('load', async () => {
@@ -40,5 +42,30 @@ window.addEventListener('load', async () => {
             }
         }
 
+        
+
+        let transx = await fetch(`http://${url}:8080/`)
+
     }
 })
+
+
+let transactionBtn = document.getElementById('tcategory-btn');
+let transactionMenu = document.getElementById('transaction-ddown');
+
+transactionBtn.addEventListener('click', () => {
+    transactionMenu.classList.toggle('is-active');
+})
+
+const transactionDDown = document.querySelectorAll('#transaction-types a');
+transactionDDown.forEach((item) => {
+    item.addEventListener('click', () => {
+        transactionDDown.forEach(a => a.classList.remove('is-active'));
+        item.classList.add('is-active');
+        let text = item.getAttribute('value');
+        let tag = document.getElementById('transaction-text');
+        tag.innerHTML = text;
+    })
+})
+
+

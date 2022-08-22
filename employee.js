@@ -3,9 +3,10 @@ let typeIdInput = document.getElementById("type-id-input");
 let amountInput = document.getElementById('amount-input');
 let confirmation = document.getElementById('error-messages');
 let idButtons = document.querySelectorAll('input[name="account-type-id"]');
+let removeButton = document.getElementById("remove-btn"); 
+let accountId = document.getElementById("account-id");
 
-
-Add account
+// Add account
 
 
 submitButton.addEventListener('click', async () => {
@@ -51,3 +52,41 @@ submitButton.addEventListener('click', async () => {
   }
 
 })
+
+
+// Remove Account
+
+
+
+removeButton.addEventListener('click', async (e) => {
+accountId = accountId.value;
+let email = localStorage.getItem(email)
+
+let res = await fetch(`http://${url}:8080/accounts/${accountId}`, {
+  'credentials': 'include',
+  'method': 'DELETE',
+  'headers': {
+    'Content-Type': 'application/json'
+  }
+})
+
+if (res.status == 200) {
+  confirmation.innerHTML = ""
+  let confirmationMessage = document.createElement('p');
+  confirmationMessage.innerHTML = "Account deleted successfully!";
+  confirmationMessage.style.color = 'green';
+  confirmationMessage.style.fontWeight = 'bold';
+  confirmation.appendChild(confirmationMessage);
+
+} else if (res.status == 400) {
+  confirmation.innerHTML = ""
+  let data = await res.json();
+  for (const msg of data) {
+    let errorElement = document.createElement('p');
+    errorElement.innerHTML = msg;
+    errorElement.style.color = 'red';
+    errorElement.style.fontWeight = 'bold';
+    confirmation.appendChild(errorElement);
+  }
+}
+});

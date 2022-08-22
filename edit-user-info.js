@@ -55,7 +55,7 @@ submitBtn.addEventListener('click', async (e) => {
         },
         'body': JSON.stringify({
             "email": emailInput,
-            "phoneNumber": phoneInput
+            "phone": phoneInput
         })
     })
 
