@@ -8,6 +8,7 @@
     <script defer src="./header.js"></script>
     <script src="/login.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -57,25 +58,31 @@
             <div id="error-messages"></div>
             <div class="field">
                 <label class="label has-text-weight-medium">Email</label>
-                <div class="control">
+                <p class="control has-icons-left">
                   <input class="input" type="email" id="email-login-input">
-                </div>
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+               </p>
             </div>
 
             <div class="field">
                 <label class="label has-text-weight-medium">Password</label>
-                <div class="control">
+                <p class="control has-icons-left">
                   <input class="input" type="password" placeholder="******" id="password-login-input">
-                </div>
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                </p>
             </div>
             <div class="field">
-                <div class="control">
-                  <button id="login-btn-2" class="button is-link">Login</button>
+              
+                <div class="control buttons is-right">
+                  <div class="column">
+                    <a href="forgotpassword.html">Forgot password?</a>
+                    </div>
+                  <button id="login-btn-2" class="button is-link is-medium is-outlined">Login</button>
                 </div>
-                <!-- Forgot Password Link -->
-                <div class="column">
-              <a href="forgotpassword.html">Forgot password?</a> 
-          </div>
             </div>
         </form>
         <!-- Sign Up Link-->
