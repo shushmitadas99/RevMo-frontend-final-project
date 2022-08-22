@@ -10,6 +10,7 @@ let removeUser = document.getElementById('remove-user');
 
 
 let account = sessionStorage.getItem("account");
+let email = sessionStorage.getItem("email");
 console.log(account);
 
 
@@ -20,7 +21,7 @@ window.addEventListener('load', async () => {
         console.log('userId not in session')
     } else {
         console.log(`account: ${account}`)
-        let res = await fetch(`http://${url}:8080/accounts/${account}`, {
+        let res = await fetch(`http://${url}:8080/${email}/accounts/${account}`, {
             'credentials': 'include',
             'method': 'GET',
             'headers': {
