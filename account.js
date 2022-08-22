@@ -9,6 +9,7 @@ let addUser = document.getElementById('add-user');
 let removeUser = document.getElementById('remove-user');
 
 
+
 let account = sessionStorage.getItem("account");
 
 
@@ -46,10 +47,57 @@ window.addEventListener('load', async () => {
 
         
 
-        let transx = await fetch(`http://${url}:8080/`)
+        let transx = await fetch(`http://${url}:8080/trx/${account}/receiver`, { //--------------------!!!------------
+            'credentials': 'include',
+            'method': 'GET',
+            'headers': {
+                'Access-Control-Allow-Origin':'*',
+                'Content-Type': 'application/json'
+            }
+    });
+        let transactions = await transx.json();
+    console.log("data")
+    console.log(transactions);
+    addIncomeToTable(transactions);
 
     }
 })
+
+function addIncomeToTable(transactions){
+    let transxTable = document.querySelector('#transactions-table tbody');
+    transxTable.innerHTML = '';
+    for (transx of transactions) {
+        console.log(transx);
+
+        let row = document.createElement('tr');
+        let date = document.createElement('td');
+        if (transx.resolveTime == null) {
+            date.innerHTML = new Date(transx.requestTime).toLocaleDateString();
+        } else {
+            date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
+        }
+        
+        
+        let type = document.createElement('td');
+        type.innerHTML = transx.description;
+        let amount = document.createElement('td');
+        amount.innerHTML = transx.amount;
+        
+        let status = document.createElement('td');
+        status.innerHTML = transx.typeName;
+        
+
+        row.appendChild(date);
+        row.appendChild(type);
+        row.appendChild(amount);
+        row.appendChild(status);
+        
+
+        transxTable.appendChild(row);
+
+
+    }
+}
 
 
 let transactionBtn = document.getElementById('tcategory-btn');
@@ -69,5 +117,7 @@ transactionDDown.forEach((item) => {
         tag.innerHTML = text;
     })
 })
+
+
 
 
