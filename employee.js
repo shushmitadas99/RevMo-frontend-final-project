@@ -5,6 +5,7 @@ let confirmation = document.getElementById('error-messages');
 let idButtons = document.querySelectorAll('input[name="account-type-id"]');
 let removeButton = document.getElementById("remove-btn"); 
 let accountId = document.getElementById("account-id");
+let accountIdInput = document.getElementById("account-id-input");
 
 // Add account
 
@@ -18,7 +19,7 @@ submitButton.addEventListener('click', async () => {
     }
   }
 
-  let res = await fetch(`http://${url}:8080/users/1/accounts`, {
+  let res = await fetch(`http://${url}:8080/accounts`, {
     // 'mode': 'no-cors',
     'credentials': 'include',
     'method': 'POST',
@@ -26,7 +27,8 @@ submitButton.addEventListener('click', async () => {
       'Content-Type': 'application/json'
     },
     'body': JSON.stringify({
-      "typeId": selectedRadioButton ? selectedRadioButton.value : null,
+      "id": accountIdInput.value,
+      "typeId": selectedRadioButton.value,
       "balance": amountInput.value
     })
   })

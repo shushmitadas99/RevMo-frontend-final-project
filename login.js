@@ -32,8 +32,8 @@ loginButton2.addEventListener('click', async (e) => {
             
             window.location.href="./user-page.html"
         }
-        else if (sessionStorage.getItem("role") == ('2')) {
-            window.location.href="./employee-page.html"
+        else if (sessionStorage.getItem("userRole") == ('2')) {
+            window.location.href="./employee.html"
         }
     } else if (res.status == 400) {
         confirmation.innerHTML = ""
