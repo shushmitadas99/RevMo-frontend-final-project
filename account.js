@@ -17,13 +17,13 @@ let account = sessionStorage.getItem("account");
 window.addEventListener('load', async () => {
     console.log('in account.js window load block');
 
-    accountNum = account.charAt(account.length-1);
+  
 
     if(sessionStorage.getItem('userId') == null){
         console.log('userId not in session')
     } else {
-        console.log(`account: ${accountNum}`)
-        let res = await fetch(`http://${url}:8080/accounts/${accountNum}`, {
+        console.log(`account: ${account}`)
+        let res = await fetch(`http://${url}:8080/accounts/${account}`, {
             'credentials': 'include',
             'method': 'GET',
             'headers': {
@@ -34,7 +34,7 @@ window.addEventListener('load', async () => {
         let data = await res.json();
         console.log(data);
         if (res.status == 200){
-            // acctNum.innerHTML = "";
+            acctNum.innerHTML = "";
             acctNum.innerHTML = data.accountId;
             acctType.innerHTML = data.typeName;
             acctAmount.innerHTML = (data.balance/100).toFixed(2);
@@ -47,7 +47,7 @@ window.addEventListener('load', async () => {
 
         
 
-        let transx = await fetch(`http://${url}:8080/trx/${account}/receiver`, { //--------------------!!!------------
+        let transx = await fetch(`http://${url}:8080/trx/account/${account}`, { //--------------------!!!------------
             'credentials': 'include',
             'method': 'GET',
             'headers': {
@@ -61,7 +61,7 @@ window.addEventListener('load', async () => {
     addIncomeToTable(transactions);
 
     }
-})
+ })
 
 function addIncomeToTable(transactions){
     let transxTable = document.querySelector('#transactions-table tbody');
