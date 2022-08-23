@@ -19,21 +19,28 @@ burgerIcon.addEventListener('click', () => {
 window.addEventListener('load', (e) => {
     console.log('in window load block header.js');
     if (sessionStorage.getItem('userId') != null){
+        console.log('userId in session');
         createAccount.classList.add('is-hidden');
         logoutBtn.classList.remove('is-hidden');
         loginBtn.classList.add('is-hidden');
         myAccount.classList.remove('is-hidden');
         transferMoney.classList.remove('is-hidden');
     } else {
+        console.log('userId not in session');
         createAccount.classList.remove('is-hidden');
         logoutBtn.classList.add('is-hidden');
         loginBtn.classList.remove('is-hidden');
         myAccount.classList.add('is-hidden');
         transferMoney.classList.add('is-hidden');
     }
+    console.log('end load listener')
 })
-logoutBtn.addEventListener('click', async (e) => 
-    {
+
+console.log('before logout btn');
+
+logoutBtn.addEventListener('click', async (e) => {
+    console.log('click logout');
+    
         let result = await fetch(`http://${url}:8080/logout`, {
             'method': 'POST', 
             'credentials': 'include',
@@ -41,11 +48,13 @@ logoutBtn.addEventListener('click', async (e) =>
                 'Access-Control-Allow-Origin': '*'
             }
         })
-        sessionStorage.clear();
+        console.log(result.status);
         e.preventDefault();
         if (result.status === 201) {
-            window.location.href = "./home.html"
+            sessionStorage.clear();
+            window.location.href = "./index.html"
 
         }
     }
 )
+console.log("end of header.js")

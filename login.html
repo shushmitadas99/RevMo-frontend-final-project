@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Home</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
-
+    <title>Login</title>
     <script defer src="./header.js"></script>
-    <script defer src="./index.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
+    <script src="/login.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
@@ -50,19 +48,33 @@
     </nav>
 
 <!-- Main Body-->
-    <h1 class="is-size-1 has-text-centered">Hello World</h1>
-    
-    <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
-      adding 'is-half' or 'is-6' to the class does the same thing
-      so class="column is-half" could take up half the screen
-      very useful for centering things on the screen (empty column on each side with active column in the middle)
-    
-      When you make a box, to separate it from the header, add 'my-4' to the class list-->
-
     <div class="columns">
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
+      <div class="column is-one-third"></div>
+      <div class="column is-one-third">
+        <form class="box is-shadowless my-6">
+            <h2 class="title is-size-4">Login</h2>
+            <div id="error-messages"></div>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Email" id="email-login-input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Password" id="password-login-input">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                  <button id="login-btn-2" class="button is-link">Login</button>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="column is-one-third"></div>
     </div>
     
 </body>
