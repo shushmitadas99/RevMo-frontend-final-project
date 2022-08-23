@@ -1,11 +1,10 @@
-let password = document.querySelector("#email").value;
+let emailInput = document.querySelector("#email").value;
 document.getElementById("email_submit").addEventListener("click", forgotEmail);
 
 
-async function forgotEmail() {
+async function forgotEmail() { 
     try {
         let res = await fetch(`http://localhost:8080/forgotpassword`,{
-            credentials: "include",
             method:"POST",
             headers: {
                 "Content-Type" : "application/json"
@@ -30,7 +29,7 @@ async function forgotEmail() {
             para.innerHTML = data.message;
 
         }
-    } catch (err){
-        // console.log(err);
+    } catch (error){
+        console.log(error);
     }
 }
