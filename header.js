@@ -56,3 +56,10 @@ logoutBtn.addEventListener('click', async (e) => {
         }
     }
 )
+
+
+const isIterable = (value) => {
+    return Symbol.iterator in Object(value);
+}
+
+console.log(isIterable([]))
