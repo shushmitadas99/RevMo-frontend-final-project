@@ -76,12 +76,19 @@ function addIncomeToTable(transactions){
         } else {
             date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
         }
-        
+        console.log("acctNum")
+        console.log (acctNum.textContent)
+        console.log(transx.receivingId)
+        if (acctNum.textContent == transx.receivingId){
+            row.setAttribute("class", "has-background-primary-light");
+        } else {
+            row.setAttribute("class", "has-background-warning-light")
+        }        
         
         let type = document.createElement('td');
         type.innerHTML = transx.description;
         let amount = document.createElement('td');
-        amount.innerHTML = transx.amount;
+        amount.innerHTML = (transx.amount/100).toFixed(2);
         
         let status = document.createElement('td');
         status.innerHTML = transx.typeName;

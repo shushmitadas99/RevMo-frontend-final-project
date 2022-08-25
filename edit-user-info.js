@@ -1,5 +1,6 @@
 let phone = document.getElementById('phone-input');
-let email = document.getElementById('email-input');
+let firstName = document.getElementById('first-name-input');
+let lastName = document.getElementById('last-name-input');
 let submitBtn = document.getElementById('submit');
 let errorMsgs = document.getElementById('error-msgs');
 console.log("in edit-user-info.js")
@@ -19,16 +20,20 @@ window.addEventListener('load', async () => {
             }});
     
             let data = await res.json();
-            // console.log(data);
+            console.log(data);
             // phone.attributes('placeholder', `${data.phoneNumber}`);
 
             let prevPhone = document.createAttribute("value");
             prevPhone.value = data.phoneNumber;
             phone.attributes.setNamedItem(prevPhone);
 
-            let prevEmail = document.createAttribute("value");
-            prevEmail.value = data.email;
-            email.attributes.setNamedItem(prevEmail);
+            let prevFirstName = document.createAttribute("value");
+            prevFirstName.value = data.firstName
+            firstName.attributes.setNamedItem(prevFirstName);
+
+            let prevLastName = document.createAttribute("value");
+            prevLastName.value = data.lastName
+            lastName.attributes.setNamedItem(prevLastName);
             
 
     
@@ -42,8 +47,9 @@ window.addEventListener('load', async () => {
 submitBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     console.log("clicked submit button");
-    let emailInput = email.value;
     let phoneInput = phone.value;
+    let firstNameInput = firstName.value;
+    let lastNameInput = lastName.value;
     console.log("submit");
     console.log(phoneInput);
 
@@ -54,8 +60,9 @@ submitBtn.addEventListener('click', async (e) => {
             'Content-Type': 'application/json'
         },
         'body': JSON.stringify({
-            "email": emailInput,
-            "phone": phoneInput
+            "phone": phoneInput,
+            "firstName": firstNameInput,
+            "lastName": lastNameInput
         })
     })
 
