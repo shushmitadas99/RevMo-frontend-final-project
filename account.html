@@ -35,7 +35,7 @@
             <div class="navbar-end">
                 <!-- Navbar Stuff Goes Here in this format: -->
                 <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
-                <a href="/user-page.html" class="navbar-item" id="my-account">My Account</a>
+                <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
                 <a class="navbar-item" id="transfer-money">Transfer Money</a>
 
             </div>
@@ -62,26 +62,26 @@
     
 
     <div class="columns box m-4 has-text-centered-mobile">
-        <div class="columns">
+        
 
-            <div class="column is-quarter" id="user-list">
-                <p class="is-underlined">Users</p>
-            </div>
-
-            <div class="column is-quarter">
-            
-                <p>Account </p>
-                <p id="account-number"> ########### </p>
-                
-            </div>
-            <div class="column is-quarter">
-                <span id="account-type">acct type</span>
-            </div>
-            <div class="column is-quarter">
-                <span class="is-size-4" id="account-amount">$50.00 </span>
-
-            </div>
+        <div class="column is-quarter" id="user-list">
+            <p class="is-underlined">Users</p>
         </div>
+
+        <div class="column is-quarter">
+        
+            <p>Account </p>
+            <p id="account-number"> ########### </p>
+            
+        </div>
+        <div class="column is-quarter">
+            <span id="account-type">acct type</span>
+        </div>
+        <div class="column is-quarter">
+            <span class="is-size-4" id="account-amount">Amount</span>
+
+        </div>
+        
     </div>
             
 
@@ -104,11 +104,6 @@
                     <p>
                         <button class="button is-light my-1" id="remove-user">Remove User</button>
                     </p> -->
-                    <p>---</p>
-                    
-                    <p>
-                        <button class="button is-danger my-1" id="delete-account">Delete Account</button>
-                    </p>
                 </div>
 
                 
@@ -126,7 +121,7 @@
                                 <div class="dropdown-trigger">
                                     <button class="button is-info is-light pt-5 pb-5" aria-haspopup="true" aria-controls="dropdown-menu" id="tcategory-btn">
                                     <span>
-                                        <span id="transaction-text">All Transactions</span>
+                                        <span id="transaction-text">Income</span>
                                     </span>
                                 </button>
                             </div>
@@ -136,13 +131,13 @@
                                     <a class="dropdown-item" id="expenses" value="Expenses">
                                     Expenses
                                     </a>
-                                    <a class="dropdown-item" id="income" value="Income">
+                                    <a class="dropdown-item is-active" id="income" value="Income">
                                     Income
                                     </a>
                                     <a class="dropdown-item" id="pending" value="Pending">
                                         Pending
                                     </a>
-                                    <a class="dropdown-item is-active" value="All Transactions" id="all-transactions">
+                                    <a class="dropdown-item" value="All Transactions" id="all-transactions">
                                         All Transactions
                                     </a>
                                 </div>
@@ -158,7 +153,6 @@
                             <th>Date</th> <!--completed else requested-->
                             <th>Type</th> <!-- income/expense-->
                             <th>Amount</th>
-                            <th>Description</th>
                             <th>Status</th>
                         </tr>
                     </thead>
