@@ -33,10 +33,9 @@ window.addEventListener('load', (e) => {
         myAccount.classList.add('is-hidden');
         transferMoney.classList.add('is-hidden');
     }
-    console.log('end load listener')
+    
 })
 
-console.log('before logout btn');
 
 logoutBtn.addEventListener('click', async (e) => {
     console.log('click logout');
@@ -57,4 +56,3 @@ logoutBtn.addEventListener('click', async (e) => {
         }
     }
 )
-console.log("end of header.js")

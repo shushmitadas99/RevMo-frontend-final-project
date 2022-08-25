@@ -2,6 +2,7 @@ console.log("login.js");
 let emailLoginInput = document.getElementById("email-login-input");
 let passwordLoginInput = document.getElementById("password-login-input");
 let loginButton2 = document.getElementById('login-btn-2');
+let confirmation = document.getElementById('error-messages');
 
 loginButton2.addEventListener('click', async (e) => {
     console.log("In event listener");
@@ -32,11 +33,11 @@ loginButton2.addEventListener('click', async (e) => {
             
             window.location.href="./user-page.html"
         }
-        else if (sessionStorage.getItem("role") == ('2')) {
-            window.location.href="./employee-page.html"
+        else if (sessionStorage.getItem("userRole") == ('2')) {
+            window.location.href="./employee.html"
         }
     } else if (res.status == 400) {
-        confirmation.innerHTML = ""
+        confirmation.innerHTML = "Invalid email and/or password"
         let data = await res.json();
         for (const msg of data) {
           let errorElement = document.createElement('p');
