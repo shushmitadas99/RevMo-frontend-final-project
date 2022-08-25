@@ -1,4 +1,4 @@
-let emailInput = document.querySelector("#email").value;
+let emailInput = document.querySelector("#email");
 document.getElementById("email_submit").addEventListener("click", forgotEmail);
 
 
@@ -13,7 +13,7 @@ async function forgotEmail() {
                 email: emailInput.value
             }),
         });
-        if (res.status == 202){
+        if (res.status == 200){
             let data = await res.json;
             let email = data.email
             
@@ -23,7 +23,7 @@ async function forgotEmail() {
             console.log("401 status gopu");
             emailInput.value = "";
             console.log("401 status gopu2");
-            let para = document.querySelector("#error-message p");
+            let para = document.querySelector("#error-message");
             console.log(`para = ${para}`);
             para.style.color = "black";
             para.innerHTML = data.message;

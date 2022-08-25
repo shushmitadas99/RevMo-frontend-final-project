@@ -1,5 +1,5 @@
-let passwordInput = document.querySelector("#new_password").value;
-let cnfrmPasswordInput = document.querySelector("#confirm_password").value;
+let passwordInput = document.querySelector("#new_password");
+let cnfrmPasswordInput = document.querySelector("#confirm_password");
 let message = document.querySelector("#password_message");
 document.getElementById("reset_password").addEventListener("click", resetPassword);
 
