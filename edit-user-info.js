@@ -55,11 +55,12 @@ submitBtn.addEventListener('click', async (e) => {
         },
         'body': JSON.stringify({
             "email": emailInput,
-            "phoneNumber": phoneInput
+            "phone": phoneInput
         })
     })
 
     if (res.status == 201) {
+        sessionStorage.setItem("email", emailInput);
         window.location.href = '/user-page.html';
     }
     else if (res.status = 400){

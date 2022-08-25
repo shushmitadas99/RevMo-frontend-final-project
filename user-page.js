@@ -6,7 +6,9 @@ let nameDiv = document.getElementById('name');
 let emailDiv = document.getElementById('email');
 let phoneDiv = document.getElementById('phone');
 let hello = document.getElementById('hello');
-let userId = sessionStorage.getItem('userId')
+let userId = sessionStorage.getItem('userId');
+let incomeBtn = document.getElementById('my-income');
+
 
 window.addEventListener('load', async () => {
     console.log('in window load block load-test.js');
@@ -110,4 +112,11 @@ function addAccounts(accts){
         accountsList.appendChild(box);
 
     }
+
+    incomeBtn.addEventListener('click', () => {
+        window.location.href="/income.html"
+    })
+
+
 }
+
