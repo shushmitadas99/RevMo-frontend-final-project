@@ -62,4 +62,9 @@ const isIterable = (value) => {
     return Symbol.iterator in Object(value);
 }
 
-console.log(isIterable([]))
+
+function numWCommas(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

@@ -2,12 +2,7 @@ console.log("in income.js")
 let incomeTable = document.getElementById('income-table');
 let userId = sessionStorage.getItem('userId')
 console.log("user Id: ", userId)
-
-let column = document.getElementById('tables-column');
-let numMonths = 3;
-let today = new Date();
-let month = today.getMonth()+1;
-var year = today.getFullYear();
+// console.log(userId)
 
 
 window.addEventListener('load', async (e) => {
@@ -23,25 +18,21 @@ window.addEventListener('load', async (e) => {
     console.log("data");
     console.log(data);
     console.log(data.accounts)
-    addTableForAccount(data.accounts);
+    // addTableForAccount(data.accounts);
     
 })
 
 
-
-console.log(today, today.getMonth()+1, today.getFullYear())
+let column = document.getElementById('tables-column');
 
 
 async function addTableForAccount(accounts) {
     console.log(isIterable(accounts));
     if (isIterable(accounts)) {
         for (account of accounts){
+            console.log(account.accountId)
             
-            let aId = account.accountId;
-            console.log("aId", aId);
-
-            
-            let income = await fetch (`http://${url}:8080/trx/income-by-account/${aId}/${month}/${year}`, {
+            let trxs = await fetch (`http://${url}:8080/trx/${account.accountId}/receiver`, {
                 'credentials': 'include',
                 'method': 'GET',
                 'headers': {
@@ -49,38 +40,47 @@ async function addTableForAccount(accounts) {
                     'Content-Type': 'application/json'
                 }
             });
-            let incomeData = await income.json();
-            console.log("incomeData", incomeData);
-            console.log("status", income.status)
+            let trxData = await trxs.json();
+            console.log("trxData")
+            console.log(trxData)
             
-            
-            if(incomeData > -1) {
+            if(Object.keys(trxData).length > 0) {
                 
                 let header = document.createElement('h2');
                 header.classList.add('is-size-4');
                 header.innerHTML = `Account ${account.accountId} <span class="is-size-5">(${account.typeName})</span>`;
                 column.appendChild(header);
                 let table = document.createElement('table');
-                table.classList.add('table', 'has-text-centered', 'is-fullwidth')
-                table.innerHTML = "<thead><tr class=\"has-text-centered\"><th>Year</th> <th>Month</th><th>Total Income</th></tr></thead>";
+                table.classList.add('table')
+                table.innerHTML = "<thead><tr class=\"has-text-centered\"><th>Date</th> <th>Amount</th><th>Description</th><th>Status</th></tr></thead>";
                 let body = document.createElement('tbody');
                 body.innerHTML = "";
                 
-
-                let row = document.createElement('tr');
-                let yearCell = document.createElement('td');
-                yearCell.innerHTML = `<p>${year}</p>`;
-                let monthCell = document.createElement('td');
-                monthCell.innerHTML = `${months[month-1]}`;
-                let income = document.createElement('td');
-                income.innerHTML = `${numWCommas((incomeData/100).toFixed(2))}`;
-                
-                row.appendChild(yearCell);
-                row.appendChild(monthCell);
-                row.appendChild(income);                
-                body.appendChild(row);
+                for (transx of trxData) {
+                    console.log(transx);
             
-               
+                    let row = document.createElement('tr');
+                    let date = document.createElement('td');
+                    date.innerHTML = new Date(transx.requestTime).toLocaleDateString();
+                    let amount = document.createElement('td');
+                    amount.innerHTML = (transx.amount/100).toFixed(2);
+                    let descrip = document.createElement('td');
+                    descrip.innerHTML = transx.description;
+                    let status = document.createElement('td');
+                    status.innerHTML = transx.typeName;
+                    
+            
+                    row.appendChild(date);
+                    row.appendChild(amount);
+                    row.appendChild(descrip);
+                    row.appendChild(status);
+                    
+                    
+            
+                    body.appendChild(row);
+            
+                }
+                
                 
                 table.appendChild(body);
                 column.appendChild(table);

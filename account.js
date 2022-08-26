@@ -70,6 +70,7 @@ function addIncomeToTable(transactions){
         console.log(transx);
 
         let row = document.createElement('tr');
+        row.setAttribute("id", `Transaction ${transx.transactionId}`)
         let date = document.createElement('td');
         if (transx.resolveTime == null) {
             date.innerHTML = new Date(transx.requestTime).toLocaleDateString();
@@ -86,7 +87,7 @@ function addIncomeToTable(transactions){
         let type = document.createElement('td');
         type.innerHTML = transx.description;
         let amount = document.createElement('td');
-        amount.innerHTML = (transx.amount/100).toFixed(2);
+        amount.innerHTML = numWCommas((transx.amount/100).toFixed(2));
         
         let status = document.createElement('td');
         status.innerHTML = transx.typeName;
