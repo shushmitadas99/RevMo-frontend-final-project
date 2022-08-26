@@ -12,7 +12,13 @@ let accountIdInput = document.getElementById("account-id-input");
 let emailInput = document.getElementById("email-input"); 
 let searchEmailButton = document.getElementById('search-email-btn');
 let accountsList = document.getElementById('accounts-tbody');
+let submitTransferButton = document.getElementById('submit-transfer-btn');
+let transferAmountDollars = document.getElementById('transfer-amount-dollars');
+let transferAmountPennies = document.getElementById('transfer-amount-pennies');
 
+let receivingId = document.getElementById('transfer-receiving-id');
+let sendingId = document.getElementById('transfer-sending-id');
+let transferType = document.getElementById('transfer-type');
 
 document.addEventListener('DOMContentLoaded', getAllAccounts)
 
@@ -169,37 +175,28 @@ console.log(aid);
     window.location.reload();
 })
 
+submitTransferButton.addEventListener('click', async ()=> {
+  let amount  = ((transferAmountDollars.value)+transferAmountPennies.value);
+  console.log(amount);
+  // let amount = (dollarAmount+transferAmountPennies.value).toString();
+  let rid = receivingId.value;
+  let sid = sendingId.value;
+  let email = sessionStorage.getItem("email");
+  let res = await fetch(`http://${url}:8080/trx/accounts`, {
+    'credentials': 'include',
+    'method': 'POST',
+    'headers': {
+        'Content-Type': 'application/json'
+    },
+    'body': JSON.stringify({
+      "sendingId": sid,
+      "receivingId": rid,
+      "amount":amount,
+      "email":email
 
-
-// removeButton.addEventListener('click', async (e) => {
-// accountId = accountId.value;
-// let email = localStorage.getItem(email)
-
-// let res = await fetch(`http://${url}:8080/accounts/${accountId}`, {
-//   'credentials': 'include',
-//   'method': 'DELETE',
-//   'headers': {
-//     'Content-Type': 'application/json'
-//   }
-// })
-
-// if (res.status == 200) {
-//   confirmation.innerHTML = ""
-//   let confirmationMessage = document.createElement('p');
-//   confirmationMessage.innerHTML = "Account deleted successfully!";
-//   confirmationMessage.style.color = 'green';
-//   confirmationMessage.style.fontWeight = 'bold';
-//   confirmation.appendChild(confirmationMessage);
-
-// } else if (res.status == 400) {
-//   confirmation.innerHTML = ""
-//   let data = await res.json();
-//   for (const msg of data) {
-//     let errorElement = document.createElement('p');
-//     errorElement.innerHTML = msg;
-//     errorElement.style.color = 'red';
-//     errorElement.style.fontWeight = 'bold';
-//     confirmation.appendChild(errorElement);
-//   }
-// }
-// });
+      
+    })
+})
+location.reload();
+console.log(res);
+})
