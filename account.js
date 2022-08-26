@@ -76,9 +76,7 @@ function addIncomeToTable(transactions){
         } else {
             date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
         }
-        console.log("acctNum")
-        console.log (acctNum.textContent)
-        console.log(transx.receivingId)
+
         if (acctNum.textContent == transx.receivingId){
             row.setAttribute("class", "has-background-primary-light");
         } else {
