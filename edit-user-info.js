@@ -67,7 +67,6 @@ submitBtn.addEventListener('click', async (e) => {
     })
 
     if (res.status == 201) {
-        sessionStorage.setItem("email", emailInput);
         window.location.href = '/user-page.html';
     }
     else if (res.status = 400){

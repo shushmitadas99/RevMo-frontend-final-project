@@ -72,7 +72,7 @@ function addAccounts(accts){
 
         let col2 = document.createElement('div');
         col2.classList.add('column', 'is-size-3', 'has-text-centered-mobile', 'is-one-fifths-tablet', 'is-two-fifths-desktop');
-        col2.innerHTML = `\$${(acct.balance/100).toFixed(2)}`; //------------check -----------------------
+        col2.innerHTML = `\$${numWCommas((acct.balance/100).toFixed(2))}`; //------------check -----------------------
 
         let col3 = document.createElement('div');
         col3.classList.add('column', 'is-two-fifths-tablet', 'is-one-fifth-desktop', 'has-text-centered-mobile');
