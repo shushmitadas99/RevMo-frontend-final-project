@@ -82,13 +82,13 @@
 
       <form class="box is-shadowless ml-5 my-5">
         <table class="table is-fullwidth is-hoverable">
-          <h2 class="title is-size-4">Accounts</h2>
+          <h2 id="accounts-title" class="title is-size-4">Accounts</h2>
             <thead is-dark>
                 <tr>
-                  <th>ID</th>
-                  <th>Balance</th>
-                  <th>Type</th>
-
+                  <th id="th-1">ID</th>
+                  <th id="th-2">Balance</th>
+                  <th id="th-3">Type</th>
+                  <th id="th-4"></th>
                 </tr>
             </thead>
             <tbody name= "transactions-table tbody" id="accounts-tbody">
@@ -185,7 +185,7 @@
             </div>
         </div>
         <div class="field">
-          <label class="label">Amount (pennies)</label>
+          <label class="label">Amount (in pennies)</label>
           <div class="control">
             <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-pennies">
           </div>
