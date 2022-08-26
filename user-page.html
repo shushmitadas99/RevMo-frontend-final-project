@@ -92,8 +92,83 @@
                 <p>
                     <a href="./pending-transactions.html"><button class="button is-light m-1" id="pending Transactions">Pending Transactions </button></a>
                 </p>
+                </div>
+
+        <div class="box">
+                <div>
+                    <form class="box is-shadowless my-5">
+                      <h2 class="title is-size-4 has-text-centered">Send Money</h2>
+                      <div id="error-messages"></div>
+              
+              
+                      <div class="field">
+                        <label class="label">Sending Id</label>
+                        <div class="control">
+                          <input class="input" type="number" placeholder="Enter sending ID" id="sending-sending-id">
+                        </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Receiving Email</label>
+                      <div class="control">
+                        <input class="input" type="text" placeholder="Enter receiving ID" id="sending-receiving-id">
+                      </div>
+                    </div>
+              
+              
+                      <div class="field">
+                          <label class="label">Amount (in cents)</label>
+                          <div class="control">
+                            <input class="input" type="number" placeholder="Enter amount" id="sending-amount-dollars">
+                          </div>
+                      </div>
+                      
+                      <div>
+                          <a class="button is-info" id="sending-transfer-btn" type="submit" >
+                            Submit
+                          </a>
+                      </div>
+                  </form>
+                  </div>
+                </div>
+                  <div>
+                    <form class="box is-shadowless my-5">
+                      <h2 class="title is-size-4 has-text-centered">Request Money</h2>
+                      <div id="error-messages"></div>
+              
+              
+                      <div class="field">
+                        <label class="label">Request Email</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Enter sending ID" id="request-sending-id">
+                        </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Receiving Id</label>
+                      <div class="control">
+                        <input class="input" type="number" placeholder="Enter receiving ID" id="request-receiving-id">
+                      </div>
+                    </div>
+              
+              
+                      <div class="field">
+                          <label class="label">Amount (in cents)</label>
+                          <div class="control">
+                            <input class="input" type="number" placeholder="Enter amount" id="request-amount-dollars">
+                          </div>
+                      </div>
+                      
+                      <div>
+                          <a class="button is-info" id="request-transfer-btn" type="submit" >
+                            Submit
+                          </a>
+                      </div>
+                  </form>
+                  </div>
+
             </div>
-        </div>
+            
+        
+        
     <!-- Account Info-->
         <div class="column is-9 pr-5">
             <div class="box" id="accounts-list">
