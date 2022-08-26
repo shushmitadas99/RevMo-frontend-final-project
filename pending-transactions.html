@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="has-background-grey-light">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pending Transactions</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
+
+    <script defer src="./header.js"></script>
+    <script defer src="./pending-transactions.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<!-- Navbar -->
+    <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
+
+        <div class="navbar-brand">
+          <a href="./index.html" class="navbar-item">
+              <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
+          </a>
+  
+          <a class="navbar-burger" id="burger">
+              <span></span>
+              <span></span>   
+              <span></span>
+          </a> 
+        </div>
+
+        <div class="navbar-menu" id="nav-links">
+            <div class="navbar-end">
+                <!-- Navbar Stuff Goes Here in this format: -->
+                <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
+                <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
+                <a class="navbar-item" id="transfer-money">Transfer Money</a>
+
+            </div>
+            <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button is-info" href="/login.html" id="login-btn">
+                    <strong>Log in</strong>
+                  </a>
+                  <a class="button is-info" id="logout-btn">
+                    Log out
+                  </a>
+                </div>
+              </div>
+        </div>
+    </nav>
+
+<!-- Main Body-->
+    
+    <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
+      adding 'is-half' or 'is-6' to the class does the same thing
+      so class="column is-half" could take up half the screen
+      very useful for centering things on the screen (empty column on each side with active column in the middle)
+    
+      When you make a box, to separate it from the header, add 'my-4' to the class list-->
+
+    <div class="columns">
+      <div class="column"></div>
+
+      <div class="column">
+        <div class="box m-4">
+
+            <table class="table"t>
+                <thead>
+                    <tr>
+                        <th>Date Requested</th>
+                        <th>Amount</th>
+                        <th>Requested By</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
+      </div>
+
+      <div class="column"></div>
+    </div>
+    
+</body>
+</html>
