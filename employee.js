@@ -20,30 +20,35 @@ let transferAmountPennies = document.getElementById('transfer-amount-pennies');
 let receivingId = document.getElementById('transfer-receiving-id');
 let sendingId = document.getElementById('transfer-sending-id');
 let transferType = document.getElementById('transfer-type');
+let backButton = document.getElementById('back-btn');
 
 document.addEventListener('DOMContentLoaded', getAllAccounts)
 
 
 searchEmailButton.addEventListener("click", setEmail);
-
+backButton.addEventListener("click", getAllAccounts);
 
 function setEmail(){
+
   sessionStorage.clear;
-  sessionStorage.setItem("email", emailInput.value);  
+  sessionStorage.setItem("email", emailInput.value); 
   
+
   location.reload();
 
 }
 
 async function getAllAccounts(){
-  // event.preventDefault();
   let email = sessionStorage.getItem("email");
-  console.log("here")
-  // document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
-  // document.getElementById("th-1").innerHTML = "ID";
-  // document.getElementById("th-2").innerHTML = "Balance";
-  // document.getElementById("th-3").innerHTML = "Type";
-  // document.getElementById("th-4").innerHTML = "";
+  document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
+  console.log("here");
+  document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
+  document.getElementById("th-1").innerHTML = "ID";
+  document.getElementById("th-2").innerHTML = "Balance";
+  document.getElementById("th-3").innerHTML = "Type";
+  document.getElementById("th-4").innerHTML = "";
+  backButton.innerHTML = "";
+  
   
       try {
           let res = await fetch(`http://${url}:8080/${email}/accounts`, {
@@ -155,6 +160,12 @@ function addAccounts(accounts){
         sessionStorage.setItem("accountId", e.target.innerHTML)
         let accountId = sessionStorage.getItem("accountId");
         console.log(accountId);
+
+        backButton.innerHTML = "Back to Accounts";
+        backButton.style.color = 'blue';
+        backButton.style.textDecoration = 'underline';
+
+        // backButton.addEventListener('click', )
         
         document.getElementById("th-1").innerHTML = "Date";
         document.getElementById("th-2").innerHTML = "Status";
