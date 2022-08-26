@@ -115,7 +115,7 @@
     <div class="column is-one-third">
         <form class="box is-shadowless ml-5 my-5">
             <h2 class="title is-size-4 has-text-centered">Add Account</h2>
-            <div id="error-messages"></div>
+            <div id="create-message"></div>
             <div class="field">
                 <label id = "account-type-id" class="label">Account Type</label>
                 <div class="control">
@@ -184,19 +184,7 @@
               <input class="input" type="number" placeholder="Enter amount" id="">
             </div>
         </div>
-        <div class="field">
-          <label id = "" class="label">Account Type</label>
-          <div class="control">
-            <label class="radio">
-              <input type="radio" name="account-type-id" value="1">
-              Chequing (1)
-            </label>
-            <label class="radio">
-              <input type="radio" name="account-type-id" value="2">
-              Savings (2)
-            </label>
-          </div>
-      </div>
+       
         <div>
             <a class="button is-info" id="" type="submit" >
               Submit
@@ -205,7 +193,7 @@
     </form>
     </div>
 
-    <!-- remove account -->
+    <!-- link/unlink account -->
 
     <div class="column is-one-third">
       <form class="box is-shadowless mr-5 my-5">
@@ -216,12 +204,12 @@
         <div class="field">
             <label class="label">Account ID</label>
             <div class="control">
-              <input class="input" type="number" placeholder="Account ID" id="link-account-id">
+              <input class="input" type="text" placeholder="Account ID" id="link-account-id">
             </div>
         </div>
 
         <div>
-            <a class="button is-info" id="remove-btn" type="submit" >
+            <a class="button is-info" id="link-btn" type="submit" >
               Link Account
             </a>
         </div>
@@ -235,12 +223,12 @@
             <div class="field">
                 <label class="label">Account ID</label>
                 <div class="control">
-                  <input class="input" type="number" placeholder="Account ID" id="unlink-account-id">
+                  <input class="input" type="text" placeholder="Account ID" id="unlink-account-id">
                 </div>
             </div>
 
             <div>
-                <a class="button is-info" id="remove-btn" type="submit" >
+                <a class="button is-info" id="unlink-btn" type="submit" >
                   Unlink Account
                 </a>
             </div>
