@@ -9,6 +9,8 @@ let hello = document.getElementById('hello');
 let userId = sessionStorage.getItem('userId');
 let incomeBtn = document.getElementById('my-income');
 
+let sendButton = document.getElementById('sending-transfer-btn');
+let requestButton = document.getElementById('request-transfer-btn');
 
 window.addEventListener('load', async () => {
     console.log('in window load block load-test.js');
@@ -120,3 +122,53 @@ function addAccounts(accts){
 
 }
 
+
+sendButton.addEventListener('click', async () => {
+    let sendInput = document.getElementById('sending-sending-id');
+    let receiveInput = document.getElementById('sending-receiving-id');
+    let amount = document.getElementById('sending-amount-dollars');
+
+    try {
+        let res = await fetch(`http://${url}:8080/trx-send`, {
+          
+            'credentials': 'include',
+            'method': 'POST',
+            'headers': {
+                'Access-Control-Allow-Origin':'*',
+                'Content-Type': 'application/json'
+    
+            }, 'body': JSON.stringify({
+                "sendingId": sendInput.value,
+                "receivingEmail": receiveInput.value,
+                "amount": amount.value
+            })
+    })} catch (err) {
+        console.log(err)
+    }
+    location.reload();
+})
+
+requestButton.addEventListener('click', async () => {
+    let sendInput = document.getElementById('request-sending-id');
+    let receiveInput = document.getElementById('request-receiving-id');
+    let amount = document.getElementById('request-amount-dollars');
+
+    try {
+        let res = await fetch(`http://${url}:8080/trx-req`, {
+          
+            'credentials': 'include',
+            'method': 'POST',
+            'headers': {
+                'Access-Control-Allow-Origin':'*',
+                'Content-Type': 'application/json'
+    
+            }, 'body': JSON.stringify({
+                "receivingEmail": sendInput.value,
+                "receivingId": receiveInput.value,
+                "amount": amount.value
+            })
+    })} catch (err) {
+        console.log(err)
+    }
+    location.reload();
+})
