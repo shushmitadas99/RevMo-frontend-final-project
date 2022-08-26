@@ -58,7 +58,7 @@
 
   <div class="column is-one-fifth">
     <form class="box is-shadowless ml-5 my-5">
-        <h2 class="title is-size-4">Active User</h2>
+        <h2 class="title is-size-4">Set Active User</h2>
 
 
         <div class="field">
@@ -82,16 +82,17 @@
 
       <form class="box is-shadowless ml-5 my-5">
         <table class="table is-fullwidth is-hoverable">
-          <h2 class="title is-size-4">Accounts</h2>
+          <h2 id="accounts-title" class="title is-size-4">Accounts</h2>
+          <h2 id="back-btn" class="title is-size-6"></h2>
             <thead is-dark>
                 <tr>
-                  <th>ID</th>
-                  <th>Type</th>
-                  <th>Balance</th>
-
+                  <th id="th-1">ID</th>
+                  <th id="th-2">Balance</th>
+                  <th id="th-3">Type</th>
+                  <th id="th-4"></th>
                 </tr>
             </thead>
-            <tbody id="accounts-tbody">
+            <tbody name= "transactions-table tbody" id="accounts-tbody">
             <var></var>
             </tbody>
         </table>
@@ -115,7 +116,7 @@
     <div class="column is-one-third">
         <form class="box is-shadowless ml-5 my-5">
             <h2 class="title is-size-4 has-text-centered">Add Account</h2>
-            <div id="error-messages"></div>
+            <div id="create-message"></div>
             <div class="field">
                 <label id = "account-type-id" class="label">Account Type</label>
                 <div class="control">
@@ -130,7 +131,7 @@
 
                 </div>
             </div>
-            <div class="field">
+            <!-- <div class="field">
               <label class="label">Account Holder ID</label>
               <div class="control">
                 <input class="input" type="number" placeholder="Enter account ID" id="account-id-input">
@@ -142,7 +143,7 @@
                 <div class="control">
                   <input class="input" type="number" placeholder="Enter amount" id="amount-input">
                 </div>
-            </div>
+            </div> -->
 
 
 
@@ -160,69 +161,92 @@
 
     <div class="column is-one-third">
       <form class="box is-shadowless my-5">
-        <h2 class="title is-size-4 has-text-centered">Transaction</h2>
+        <h2 class="title is-size-4 has-text-centered">Transfer Between Accounts</h2>
         <div id="error-messages"></div>
 
 
         <div class="field">
           <label class="label">Sending ID</label>
           <div class="control">
-            <input class="input" type="number" placeholder="Enter sending ID" id="">
+            <input class="input" type="number" placeholder="Enter sending ID" id="transfer-sending-id">
           </div>
       </div>
       <div class="field">
         <label class="label">Receiving ID</label>
         <div class="control">
-          <input class="input" type="number" placeholder="Enter receiving ID" id="">
+          <input class="input" type="number" placeholder="Enter receiving ID" id="transfer-receiving-id">
         </div>
       </div>
 
 
         <div class="field">
-            <label class="label">Amount</label>
+            <label class="label">Amount (in cents)</label>
             <div class="control">
-              <input class="input" type="number" placeholder="Enter amount" id="">
+              <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-dollars">
             </div>
         </div>
-        <div class="field">
-          <label id = "" class="label">Account Type</label>
+        <!-- <div class="field">
+          <label class="label">Amount (in pennies)</label>
           <div class="control">
-            <label class="radio">
-              <input type="radio" name="account-type-id" value="1">
-              Chequing (1)
-            </label>
-            <label class="radio">
-              <input type="radio" name="account-type-id" value="2">
-              Savings (2)
-            </label>
+            <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-pennies">
           </div>
-      </div>
+      </div> -->
+        <!-- <div class="field">
+          <label class="label">Amount</label>
+          <div class="control">
+            <select class="dropdown" style="width: 100%; height: 30px" type="text" id="transfer-type">
+              <option>Select Type</option>
+            <option value="1">Income</option>
+            <option value="2">Transfer</option>
+            <option value="3">Deposit</option>
+            </select>
+          </div> -->
+      <!-- </div> -->
         <div>
-            <a class="button is-info" id="" type="submit" >
+            <a class="button is-info" id="submit-transfer-btn" type="submit" >
               Submit
             </a>
         </div>
     </form>
     </div>
 
-    <!-- remove account -->
+    <!-- link/unlink account -->
 
     <div class="column is-one-third">
+      <form class="box is-shadowless mr-5 my-5">
+        <h2 class="title is-size-4 has-text-centered">Link Account</h2>
+        <div id="error-messages"></div>
+
+
+        <div class="field">
+            <label class="label">Account ID</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Account ID" id="link-account-id">
+            </div>
+        </div>
+
+        <div>
+            <a class="button is-info" id="link-btn" type="submit" >
+              Link Account
+            </a>
+        </div>
+    </form>
+
         <form class="box is-shadowless mr-5 my-5">
-            <h2 class="title is-size-4 has-text-centered">Remove Account</h2>
+            <h2 class="title is-size-4 has-text-centered">Unlink Account</h2>
             <div id="error-messages"></div>
 
 
             <div class="field">
                 <label class="label">Account ID</label>
                 <div class="control">
-                  <input class="input" type="number" placeholder="Account ID" id="account-id">
+                  <input class="input" type="text" placeholder="Account ID" id="unlink-account-id">
                 </div>
             </div>
 
             <div>
-                <a class="button is-info" id="remove-btn" type="submit" >
-                  Remove Account
+                <a class="button is-info" id="unlink-btn" type="submit" >
+                  Unlink Account
                 </a>
             </div>
         </form>
