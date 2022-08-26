@@ -7,10 +7,66 @@ let requestMoney = document.getElementById('request-transfer');
 let sendMoney = document.getElementById('send-money');
 let addUser = document.getElementById('add-user');
 let removeUser = document.getElementById('remove-user');
+let sendButton = document.getElementById('sending-transfer-btn');
+let requestButton = document.getElementById('request-transfer-btn');
 
 
 
 let account = sessionStorage.getItem("account");
+
+sendButton.addEventListener('click', async () => {
+    let sendInput = document.getElementById('sending-sending-id');
+    let receiveInput = document.getElementById('sending-receiving-id');
+    let amount = document.getElementById('sending-amount-dollars');
+
+    try {
+        let res = await fetch(`http://${url}:8080/trx-send`, {
+          
+            'credentials': 'include',
+            'method': 'POST',
+            'headers': {
+                'Access-Control-Allow-Origin':'*',
+                'Content-Type': 'application/json'
+    
+            }, 'body': JSON.stringify({
+                "sendingId": sendInput.value,
+                "receivingEmail": receiveInput.value,
+                "amount": amount.value
+            })
+    })} catch (err) {
+        console.log(err)
+    }
+    location.reload();
+})
+
+requestButton.addEventListener('click', async () => {
+    let sendInput = document.getElementById('request-sending-id');
+    let receiveInput = document.getElementById('request-receiving-id');
+    let amount = document.getElementById('request-amount-dollars');
+
+    try {
+        let res = await fetch(`http://${url}:8080/trx-req`, {
+          
+            'credentials': 'include',
+            'method': 'POST',
+            'headers': {
+                'Access-Control-Allow-Origin':'*',
+                'Content-Type': 'application/json'
+    
+            }, 'body': JSON.stringify({
+                "receivingEmail": sendInput.value,
+                "receivingId": receiveInput.value,
+                "amount": amount.value
+            })
+    })} catch (err) {
+        console.log(err)
+    }
+    location.reload();
+})
+
+
+
+
 
 
 
@@ -106,12 +162,12 @@ function addIncomeToTable(transactions){
 }
 
 
-let transactionBtn = document.getElementById('tcategory-btn');
-let transactionMenu = document.getElementById('transaction-ddown');
+// let transactionBtn = document.getElementById('tcategory-btn');
+// let transactionMenu = document.getElementById('transaction-ddown');
 
-transactionBtn.addEventListener('click', () => {
-    transactionMenu.classList.toggle('is-active');
-})
+// transactionBtn.addEventListener('click', () => {
+//     transactionMenu.classList.toggle('is-active');
+// })
 
 const transactionDDown = document.querySelectorAll('#transaction-types a');
 transactionDDown.forEach((item) => {
