@@ -40,14 +40,14 @@ async function addTableForAccount(accounts) {
                 }
             });
             let trxData = await trxs.json();
-            console.log("trxData")
-            console.log(trxData)
+            // console.log("trxData")
+            // console.log(trxData)
             
             if(Object.keys(trxData).length > 0) {
                 
                 let header = document.createElement('h2');
                 header.classList.add('is-size-4');
-                header.innerHTML = `Account ${account.accountId} <span class="is-size-5">(${account.typeName})</span>`;
+                header.innerHTML = `Account ${account.accountId} <span class="is-size-5">(${account.typeName}) Balance = ${numWCommas((account.balance/100).toFixed(2))}</span>`;
                 column.appendChild(header);
                 let table = document.createElement('table');
                 table.classList.add('table', 'is-fullwidth')
@@ -74,36 +74,47 @@ async function addTableForAccount(accounts) {
                     approve.setAttribute("name", "approve");
                     approve.setAttribute("id", `${transx.transactionId}`);
                     approve.innerHTML = "Approve"
-                    approve.addEventListener('click', (e) => {
+                    approve.addEventListener('click', async (e) => {
                         console.log(`Approve request #${e.target.id} clicked!`);
-                        // fetch(`http://${url}:8080/`, {
-                        //     'credentials': 'include',
-                        //     'method': 'GET',
-                        //     'headers': {
-                        //         'Access-Control-Allow-Origin':'*',
-                        //         'Content-Type': 'application/json'
-                        //     })
+                        console.log()
+                        // endpoint expects JSON { "statusId": "{2 for approved, 3 for denied}", "transactionId": "{trxId}"}
+            
+                        await fetch(`http://${url}:8080/trx-req`, {
+                            'credentials': 'include',
+                            'method': 'PUT',
+                            'headers': {
+                                'Access-Control-Allow-Origin':'*',
+                                'Content-Type': 'application/json'
+                            },
+                            'body': JSON.stringify({
+                                "statusId": "2",
+                                "transactionId": `${e.target.id}`
+                            })
+                        })
+                        location.reload();
                     });
+
                     let deny = document.createElement('button');
                     deny.classList.add('button', 'is-danger');
                     deny.setAttribute("name", "deny");
                     deny.setAttribute("id", `${transx.transactionId}`);
                     deny.innerHTML =  "Deny"
-                    deny.addEventListener('click', (e) => {
+                    deny.addEventListener('click', async (e) => {
                         console.log(`Deny request #${e.target.id} clicked!`)
-                    })   
-                    
-                    // receipt.innerHTML = `<button class="button" name ="receipt-btn" id="${re.receipt}">receipt</button>`;
-                    // console.log(re.receipt)
-                    // receipt.addEventListener('click', (e) => {
-                    //     modal.classList.add('is-active')
-                    //     fetch(`http://127.0.0.1:8080/get-receipt/${e.target.id}`)
-                    //         .then(response => response.blob())
-                    //         .then(imageBlob => {
-                    //             const imgObjURL = URL.createObjectURL(imageBlob);
-                    //             console.log(imgObjURL);
-                    //             receiptImg.src = imgObjURL
-                    // })
+                        await fetch(`http://${url}:8080/trx-req`, {
+                            'credentials': 'include',
+                            'method': 'PUT',
+                            'headers': {
+                                'Access-Control-Allow-Origin':'*',
+                                'Content-Type': 'application/json'
+                            },
+                            'body': JSON.stringify({
+                                "statusId": "3",
+                                "transactionId": `${e.target.id}`
+                            })
+                        })
+                        location.reload();
+                    });  
 
                     buttons.appendChild(approve);
                     buttons.appendChild(deny);
