@@ -15,6 +15,7 @@ let accountsList = document.getElementById('accounts-tbody');
 let submitTransferButton = document.getElementById('submit-transfer-btn');
 let transferAmountDollars = document.getElementById('transfer-amount-dollars');
 let transferAmountPennies = document.getElementById('transfer-amount-pennies');
+// let confirmation = document.getElementById('error-messages');
 
 let receivingId = document.getElementById('transfer-receiving-id');
 let sendingId = document.getElementById('transfer-sending-id');
@@ -33,6 +34,13 @@ function setEmail(){
 }
 
 async function getAllAccounts(){
+  
+  document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
+  document.getElementById("th-1").innerHTML = "ID";
+  document.getElementById("th-2").innerHTML = "Balance";
+  document.getElementById("th-3").innerHTML = "Type";
+  document.getElementById("th-4").innerHTML = "";
+  
   let email = sessionStorage.getItem("email");
       try {
           let res = await fetch(`http://${url}:8080/${email}/accounts`, {
@@ -128,6 +136,8 @@ function addAccounts(accounts){
       type.innerHTML = account.typeName;
       let amount = document.createElement('td');
       amount.innerHTML = `$${(account.balance/100).toFixed(2)}`
+      accountId.style.color = 'blue';
+      accountId.style.textDecoration = 'underline';
       
       // let trxlist = document.createElement('td');
       // trxlist.innerHTML = `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Transactions</button>`;
@@ -136,6 +146,49 @@ function addAccounts(accounts){
       //     window.location.href = './account.html';
       //     console.log(`clicked "view account" for account ${e.target.id}`)})
 
+      accountId.addEventListener('click', async (e) => {
+        sessionStorage.setItem("accountId", e.target.innerHTML)
+        let accountId = sessionStorage.getItem("accountId");
+        console.log(accountId);
+        
+        document.getElementById("th-1").innerHTML = "Date";
+        document.getElementById("th-2").innerHTML = "Status";
+        document.getElementById("th-3").innerHTML = "Amount";
+        document.getElementById("th-4").innerHTML = "Description";
+        document.getElementById("accounts-title").innerHTML = "Transactions for Account " + accountId;
+
+        try {
+          
+          let res = await fetch(`http://${url}:8080/trx/account/${accountId}`, {
+          
+          'credentials': 'include',
+          'method': 'GET',
+          'headers': {
+              'Access-Control-Allow-Origin':'*',
+              'Content-Type': 'application/json'
+  
+          }});
+  
+          let data = await res.json();
+          console.log(data);
+
+          addTrx(data);
+
+
+  }
+  
+  catch(err) {
+
+    accountsList.innerHTML = "";
+    accountsList.innerHTML = "You are not logged in!";
+    console.log(err);
+}
+
+        
+
+      })
+      
+      
       row.appendChild(accountId);
       row.appendChild(amount);
       row.appendChild(type);
@@ -145,6 +198,45 @@ function addAccounts(accounts){
 
   }
 }
+
+
+
+
+function addTrx(trxs){
+  
+  let acctsTable = document.getElementById('accounts-tbody');
+  acctsTable.innerHTML = '';
+  
+
+  for (trx of trxs) {
+      console.log(trx);
+
+      let row = document.createElement('tr');
+      
+      let resolveTime = document.createElement('td');
+      resolveTime.innerHTML = trx.resolveTime;
+
+      let type = document.createElement('td');
+      type.innerHTML = trx.typeName;
+      
+      let amount = document.createElement('td');
+      amount.innerHTML = `$${(trx.amount).toFixed(2)}`
+
+      let description = document.createElement('td');
+      description.innerHTML = trx.description;
+
+      row.appendChild(resolveTime);
+      row.appendChild(type);
+      row.appendChild(amount);
+      row.appendChild(description);
+      
+
+      acctsTable.appendChild(row);
+
+  }
+}
+
+
 
 linkButton.addEventListener('click', async ()=>{
   let email = sessionStorage.getItem("email");
