@@ -30,18 +30,21 @@ searchEmailButton.addEventListener("click", setEmail);
 function setEmail(){
   sessionStorage.clear;
   sessionStorage.setItem("email", emailInput.value);  
+  
   location.reload();
+
 }
 
 async function getAllAccounts(){
-  
-  document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
-  document.getElementById("th-1").innerHTML = "ID";
-  document.getElementById("th-2").innerHTML = "Balance";
-  document.getElementById("th-3").innerHTML = "Type";
-  document.getElementById("th-4").innerHTML = "";
-  
+  // event.preventDefault();
   let email = sessionStorage.getItem("email");
+  console.log("here")
+  // document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
+  // document.getElementById("th-1").innerHTML = "ID";
+  // document.getElementById("th-2").innerHTML = "Balance";
+  // document.getElementById("th-3").innerHTML = "Type";
+  // document.getElementById("th-4").innerHTML = "";
+  
       try {
           let res = await fetch(`http://${url}:8080/${email}/accounts`, {
           
@@ -54,14 +57,14 @@ async function getAllAccounts(){
           }});
   
           let data = await res.json();
-          
+          sessionStorage.setItem("accounts", data);
           addAccounts(data);
-
+          console.log(data);
           
   }
   
   catch(err) {
-
+    console.log(err);
     accountsList.innerHTML = "";
     accountsList.innerHTML = "You are not logged in!";
 }
@@ -95,11 +98,11 @@ if (res.status == 201) {
   let data = await res.json();
   // let accountId = data.accountId;
   // alert("Account with number ${accountId} has been created")
-  // let errorElement = document.createElement('p');
-  // errorElement.innerHTML = data.accountId;
-  // errorElement.style.color = 'green';
-  // errorElement.style.fontWeight = 'bold';
-  // newAccountConfirmation.appendChild(errorElement);
+  let errorElement = document.createElement('p');
+  errorElement.innerHTML = data.accountId;
+  errorElement.style.color = 'green';
+  errorElement.style.fontWeight = 'bold';
+  newAccountConfirmation.appendChild(errorElement);
 
   let email = sessionStorage.getItem("email");
   // let aid = data.accountId
@@ -128,7 +131,9 @@ function addAccounts(accounts){
 
   for (account of accounts) {
       // console.log(account);
-
+      // let accounts = sessionStorage.getItem("accounts");
+      // let accId = accounts.accountId;
+      // console.log(accounts)
       let row = document.createElement('tr');
       let accountId = document.createElement('td');
       accountId.innerHTML = account.accountId;
@@ -139,12 +144,12 @@ function addAccounts(accounts){
       accountId.style.color = 'blue';
       accountId.style.textDecoration = 'underline';
       
-      // let trxlist = document.createElement('td');
-      // trxlist.innerHTML = `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Transactions</button>`;
-      // trxlist.addEventListener('click', (e) => {
-      //     sessionStorage.setItem("account", e.target.id);
-      //     window.location.href = './account.html';
-      //     console.log(`clicked "view account" for account ${e.target.id}`)})
+      let trxlist = document.createElement('td');
+      trxlist.innerHTML = `<button class="button is-info is-light has-text-weight-semibold my-2" id="${accounts.accountId}">View Transactions</button>`;
+      trxlist.addEventListener('click', (e) => {
+          sessionStorage.setItem("account", e.target.id);
+          window.location.href = './account.html';
+          console.log(`clicked "view account" for account ${e.target.id}`)})
 
       accountId.addEventListener('click', async (e) => {
         sessionStorage.setItem("accountId", e.target.innerHTML)
@@ -196,7 +201,8 @@ function addAccounts(accounts){
       acctsTable.appendChild(row);
 
 
-  }
+  // })
+}
 }
 
 
@@ -220,7 +226,7 @@ function addTrx(trxs){
       type.innerHTML = trx.typeName;
       
       let amount = document.createElement('td');
-      amount.innerHTML = `$${(trx.amount).toFixed(2)}`
+      amount.innerHTML = `$${(trx.amount/100).toFixed(2)}`
 
       let description = document.createElement('td');
       description.innerHTML = trx.description;
@@ -268,9 +274,7 @@ console.log(aid);
 })
 
 submitTransferButton.addEventListener('click', async ()=> {
-  let amount  = ((transferAmountDollars.value)+transferAmountPennies.value);
-  console.log(amount);
-  // let amount = (dollarAmount+transferAmountPennies.value).toString();
+  let amount  = (transferAmountDollars.value);
   let rid = receivingId.value;
   let sid = sendingId.value;
   let email = sessionStorage.getItem("email");
