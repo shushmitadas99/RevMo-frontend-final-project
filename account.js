@@ -15,7 +15,7 @@ let receivingId = document.getElementById('transfer-receiving-id');
 let accountDropdown = document.getElementById('transfer-receiving-id')
 let currentMonthIncome = document.getElementById('current-month-total-income');
 let allTimeIncome = document.getElementById('all-time-total-income');
-
+let errMsgs = document.getElementById('error-messages');
 let account = sessionStorage.getItem("account");
 
 
@@ -223,6 +223,15 @@ submitTransferButton.addEventListener('click', async () => {
 
     })
   })
+  if (res.status == 400) {
+    errMsgs.innerHTML = ""
+    let data = await res.json();
+    let errorElement = document.createElement('p');
+    errorElement.innerHTML = data;
+    errorElement.style.color = 'red';
+    errorElement.style.fontWeight = 'bold';
+    userList.appendChild(errorElement);
+  }
   //   reload page after transfer
-  location.reload();
+  //location.reload();
 })
