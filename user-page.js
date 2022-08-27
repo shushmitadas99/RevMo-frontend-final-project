@@ -1,5 +1,4 @@
 
-console.log('load-test.js');
 
 let accountsList = document.getElementById('accounts-list')
 let nameDiv = document.getElementById('name');
@@ -18,9 +17,7 @@ console.log("userId", uId)
 
 
 window.addEventListener('load', async () => {
-    console.log('in window load block load-test.js');
         try {
-            console.log("in try load-test.js");
             let res = await fetch(`http://${url}:8080/user`, {
             
             'credentials': 'include',
@@ -32,15 +29,26 @@ window.addEventListener('load', async () => {
             }});
     
             let data = await res.json();
-            console.log(data);
+            // console.log(data);
             hello.innerHTML = "";
             hello.innerHTML = `Hello, ${data.firstName}`;
             nameDiv.innerHTML = `${data.firstName} ${data.lastName}` 
             emailDiv.innerHTML = data.email; 
             phoneDiv.innerHTML = data.phoneNumber; 
             console.log(data.accounts);
-           
+            for(let i = 0; i<(data.accounts).length;i++){
             
+                let newOption = document.createElement('option'); 
+                let newOption2 = document.createElement('option');
+                let sendInput = document.getElementById('sending-sending-id');
+                let receiveInput = document.getElementById('request-receiving-id');
+                newOption.text = data.accounts[i].accountId;
+                newOption.value = data.accounts[i].accountId;
+                newOption2.text = data.accounts[i].accountId;
+                newOption2.value = data.accounts[i].accountId;
+                sendInput.appendChild(newOption2)
+                receiveInput.appendChild(newOption)
+            }
             addAccounts(data.accounts);
 
             let allIncome = await fetch(`http://${url}:8080/trx/income-by-user/${uId}`, {
@@ -119,7 +127,7 @@ function addAccounts(accts){
         acctPage.addEventListener('click', (e) => {
             sessionStorage.setItem("account", e.target.id);
             window.location.href = './account.html';
-            console.log(`clicked "view account" for account ${e.target.id}`)
+            // console.log(`clicked "view account" for account ${e.target.id}`)
         })
 
         // let reqMon = document.createElement('div');
@@ -159,10 +167,11 @@ function addAccounts(accts){
 
 
 sendButton.addEventListener('click', async () => {
+
     let sendInput = document.getElementById('sending-sending-id');
     let receiveInput = document.getElementById('sending-receiving-id');
     let amount = document.getElementById('sending-amount-dollars');
-
+console.log(sendInput.value)
     try {
         let res = await fetch(`http://${url}:8080/trx-send`, {
           

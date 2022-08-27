@@ -71,6 +71,7 @@ window.addEventListener('load', async () => {
             acctNum.innerHTML = data.accountId;
             acctType.innerHTML = data.typeName;
 
+
             acctAmount.innerHTML = `\$${numWCommas((data.balance/100).toFixed(2))}`;
             for (user of data.accountOwners){
                 let cell = document.createElement('p');
