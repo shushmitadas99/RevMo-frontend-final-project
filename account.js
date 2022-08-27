@@ -13,7 +13,8 @@ let submitTransferButton = document.getElementById('submit-transfer-btn');
 let transferAmountDollars = document.getElementById('transfer-amount-dollars');
 let receivingId = document.getElementById('transfer-receiving-id');
 let accountDropdown = document.getElementById('transfer-receiving-id')
-
+let currentMonthIncome = document.getElementById('current-month-total-income');
+let allTimeIncome = document.getElementById('all-time-total-income');
 
 let account = sessionStorage.getItem("account");
 
@@ -69,14 +70,42 @@ window.addEventListener('load', async () => {
             acctNum.innerHTML = "";
             acctNum.innerHTML = data.accountId;
             acctType.innerHTML = data.typeName;
-            
-            acctAmount.innerHTML = (`\$${numWCommas((data.balance/100).toFixed(2))}`);
+
+
+            acctAmount.innerHTML = `\$${numWCommas((data.balance/100).toFixed(2))}`;
             for (user of data.accountOwners){
                 let cell = document.createElement('p');
                 cell.innerHTML = user;
                 userList.appendChild(cell);
             }
         }
+        // let allIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}`, {
+        //         'credentials': 'include',
+        //         'method': 'GET',
+        //         'headers': {
+        //             'Access-Control-Allow-Origin':'*',
+        //             'Content-Type': 'application/json'
+        
+        //         }
+        //     });
+        //     let allIncomeRes = await allIncome.json();
+        //     console.log("all income", numWCommas((allIncomeRes/100).toFixed(2)))
+        //     allTimeIncome.innerHTML = "";
+        //     allTimeIncome.innerHTML = `\$${numWCommas((allIncomeRes/100).toFixed(2))}`
+
+            let monthIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}/0/0`, {
+                'credentials': 'include',
+                'method': 'GET',
+                'headers': {
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type': 'application/json'
+        
+                }
+            });
+            let monthIncomeRes = await monthIncome.json();
+            console.log("month income", numWCommas((monthIncomeRes/100).toFixed(2)))
+            currentMonthIncome.innerHTML = "";
+            currentMonthIncome.innerHTML = `\$${numWCommas((monthIncomeRes/100).toFixed(2))}`
 
         
 
