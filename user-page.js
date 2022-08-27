@@ -34,7 +34,8 @@ window.addEventListener('load', async () => {
             emailDiv.innerHTML = data.email; 
             phoneDiv.innerHTML = data.phoneNumber; 
             console.log(data.accounts);
-    
+           
+            
             addAccounts(data.accounts);
     
         } catch(err) {

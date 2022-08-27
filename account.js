@@ -1,4 +1,4 @@
-console.log("account.js")
+// console.log("account.js")
 let acctNum = document.getElementById('account-number');
 let acctType = document.getElementById('account-type');
 let acctAmount = document.getElementById('account-amount');
@@ -7,62 +7,16 @@ let requestMoney = document.getElementById('request-transfer');
 let sendMoney = document.getElementById('send-money');
 let addUser = document.getElementById('add-user');
 let removeUser = document.getElementById('remove-user');
-let sendButton = document.getElementById('sending-transfer-btn');
-let requestButton = document.getElementById('request-transfer-btn');
-
+// let sendButton = document.getElementById('sending-transfer-btn');
+// let requestButton = document.getElementById('request-transfer-btn');
+let submitTransferButton = document.getElementById('submit-transfer-btn');
+let transferAmountDollars = document.getElementById('transfer-amount-dollars');
+let receivingId = document.getElementById('transfer-receiving-id');
+let accountDropdown = document.getElementById('transfer-receiving-id')
 
 
 let account = sessionStorage.getItem("account");
 
-sendButton.addEventListener('click', async () => {
-    let sendInput = document.getElementById('sending-sending-id');
-    let receiveInput = document.getElementById('sending-receiving-id');
-    let amount = document.getElementById('sending-amount-dollars');
-
-    try {
-        let res = await fetch(`http://${url}:8080/trx-send`, {
-          
-            'credentials': 'include',
-            'method': 'POST',
-            'headers': {
-                'Access-Control-Allow-Origin':'*',
-                'Content-Type': 'application/json'
-    
-            }, 'body': JSON.stringify({
-                "sendingId": sendInput.value,
-                "receivingEmail": receiveInput.value,
-                "amount": amount.value
-            })
-    })} catch (err) {
-        console.log(err)
-    }
-    location.reload();
-})
-
-requestButton.addEventListener('click', async () => {
-    let sendInput = document.getElementById('request-sending-id');
-    let receiveInput = document.getElementById('request-receiving-id');
-    let amount = document.getElementById('request-amount-dollars');
-
-    try {
-        let res = await fetch(`http://${url}:8080/trx-req`, {
-          
-            'credentials': 'include',
-            'method': 'POST',
-            'headers': {
-                'Access-Control-Allow-Origin':'*',
-                'Content-Type': 'application/json'
-    
-            }, 'body': JSON.stringify({
-                "receivingEmail": sendInput.value,
-                "receivingId": receiveInput.value,
-                "amount": amount.value
-            })
-    })} catch (err) {
-        console.log(err)
-    }
-    location.reload();
-})
 
 
 
@@ -71,14 +25,37 @@ requestButton.addEventListener('click', async () => {
 
 
 window.addEventListener('load', async () => {
-    console.log('in account.js window load block');
 
-  
+    try {
+        
+        let res1 = await fetch(`http://${url}:8080/user`, {
+        
+        'credentials': 'include',
+        'method': 'GET',
+        'headers': {
+            'Access-Control-Allow-Origin':'*',
+            'Content-Type': 'application/json'
+
+        }});
+
+        let data1 = await res1.json();
+        for(let i = 1; i<(data1.accounts).length;i++){
+            
+            let newOption = document.createElement('option');
+            newOption.text = data1.accounts[i].accountId;
+            newOption.value = data1.accounts[i].accountId;
+            accountDropdown.appendChild(newOption)
+        }
+
+    } catch(err) {
+        
+        // accountsList.innerHTML = "";
+        // accountsList.innerHTML = "You are not logged in!";
+        console.log(err);
+    } 
 
     if(sessionStorage.getItem('userId') == null){
-        console.log('userId not in session')
     } else {
-        console.log(`account: ${account}`)
         let res = await fetch(`http://${url}:8080/accounts/${account}`, {
             'credentials': 'include',
             'method': 'GET',
@@ -88,11 +65,11 @@ window.addEventListener('load', async () => {
             }
         });
         let data = await res.json();
-        console.log(data);
         if (res.status == 200){
             acctNum.innerHTML = "";
             acctNum.innerHTML = data.accountId;
             acctType.innerHTML = data.typeName;
+
             acctAmount.innerHTML = (data.balance/100).toFixed(2);
             for (user of data.accountOwners){
                 let cell = document.createElement('p');
@@ -112,8 +89,7 @@ window.addEventListener('load', async () => {
             }
     });
         let transactions = await transx.json();
-    console.log("data")
-    console.log(transactions);
+   
     addIncomeToTable(transactions);
 
     }
@@ -123,7 +99,6 @@ function addIncomeToTable(transactions){
     let transxTable = document.querySelector('#transactions-table tbody');
     transxTable.innerHTML = '';
     for (transx of transactions) {
-        console.log(transx);
 
         let row = document.createElement('tr');
         row.setAttribute("id", `Transaction ${transx.transactionId}`)
@@ -183,3 +158,27 @@ transactionDDown.forEach((item) => {
 
 
 
+
+submitTransferButton.addEventListener('click', async ()=> {
+    let amount  = (transferAmountDollars.value);
+    let rid = receivingId.value;
+    console.log(rid)
+    let email = sessionStorage.getItem("email");
+    let res = await fetch(`http://${url}:8080/trx/accounts`, {
+      'credentials': 'include',
+      'method': 'POST',
+      'headers': {
+          'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify({
+        "sendingId": account,
+        "receivingId": rid,
+        "amount":amount,
+        "email":email
+  
+        
+      })
+  })
+//   console.log(localStorage.getItem("AllAccounts"));
+  location.reload();
+  })
