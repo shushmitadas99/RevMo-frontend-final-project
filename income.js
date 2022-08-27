@@ -6,8 +6,9 @@ console.log("user Id: ", userId)
 let refreshBtn = document.getElementById('refresh');
 let monthsToDisplay = document.getElementById('months-to-display');
 
+
 let column = document.getElementById('tables-column');
-let numMonths = 3;
+
 let today = new Date();
 let month = today.getMonth()+1;
 var year = today.getFullYear();
@@ -25,6 +26,7 @@ window.addEventListener('load', async (e) => {
     if(sessionStorage.getItem("months to display")){
         monthsToDisplay.setAttribute("value", sessionStorage.getItem("months to display"))
     }
+    
     let data = await res.json();
     console.log("data");
     console.log(data);
@@ -46,8 +48,9 @@ async function addTableForAccount(accounts) {
     console.log(isIterable(accounts));
     if (isIterable(accounts)) {
         for (account of accounts){
-            let monthsToDo = monthsToDisplay.value;
+            let monthsToDo = monthsToDisplay.value || 3;
             // console.log("months to display", monthsToDo);
+            
             
             let aId = account.accountId;
             // console.log("aId", aId);
@@ -67,6 +70,7 @@ async function addTableForAccount(accounts) {
             for (let i = 0; i < monthsToDo; i++){
                 let thisMonth = month-i-1;
                 let thisYear = year;
+                console.log("thisMonth", thisMonth, "thisYear", thisYear)
                 if (thisMonth <= 0 ){
                     thisMonth = 12+thisMonth;
                     thisYear--;
