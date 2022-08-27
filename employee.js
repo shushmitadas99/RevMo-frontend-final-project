@@ -64,7 +64,9 @@ async function getAllAccounts(){
   
           let data = await res.json();
           sessionStorage.setItem("accounts", data);
-
+          unlinkAccountId.innerHTML = "";
+          sendingId.innerHTML = "";
+          receivingId.innerHTML= "";
           for(let i = 0; i<(data).length;i++){
             let unlinkIdOption = document.createElement('option');
             let sendingIdOption = document.createElement('option');
@@ -302,17 +304,7 @@ let aid = linkAccountId.value;
 
   
 unlinkButton.addEventListener('click', async ()=>{
-  // function doublecheck() {
-  //   let text;
-  //   let confirm = false;
-  //   if (confirm("Press a button!") == true) {
-  //     text = "You pressed OK!";
-  //     confirm = true;
-  //   } else {
-  //     text = "You canceled!";
-  //   }
-  // }
-  //   if(confirm == true){
+ 
   
 let email = sessionStorage.getItem("email");
 let aid = unlinkAccountId.value;
@@ -323,7 +315,6 @@ let aid = unlinkAccountId.value;
       'Content-Type': 'application/json'}
     })
     window.location.reload();
-// }
 })
 
 
