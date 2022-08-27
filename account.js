@@ -27,158 +27,156 @@ let account = sessionStorage.getItem("account");
 
 window.addEventListener('load', async () => {
 
-    try {
-       
-        let res1 = await fetch(`http://${url}:8080/user`, {   // get user info 
+  try {
+
+    let res1 = await fetch(`http://${url}:8080/user`, {   // get user info 
+      'credentials': 'include',
+      'method': 'GET',
+      'headers': {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+
+      }
+    });
+    if (res1.status == 200) {
+      let data1 = await res1.json();
+      for (let i = 0; i < (data1.accounts).length; i++) {
+
+        let newOption = document.createElement('option');
+        newOption.text = data1.accounts[i].accountId;
+        newOption.value = data1.accounts[i].accountId;
+        accountDropdown.appendChild(newOption)
+      }
+    }
+
+    if (sessionStorage.getItem('userId')) {
+      let res = await fetch(`http://${url}:8080/accounts/${account}`, { // get account
         'credentials': 'include',
         'method': 'GET',
         'headers': {
-            'Access-Control-Allow-Origin':'*',
-            'Content-Type': 'application/json'
-
-        }});
-
-        let data1 = await res1.json();
-        for(let i = 0; i<(data1.accounts).length;i++){
-            
-            let newOption = document.createElement('option');
-            newOption.text = data1.accounts[i].accountId;
-            newOption.value = data1.accounts[i].accountId;
-            accountDropdown.appendChild(newOption)
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
         }
-
-    } catch(err) {
-        
-        // accountsList.innerHTML = "";
-        // accountsList.innerHTML = "You are not logged in!";
-        console.log(err);
-    } 
-
-    if(sessionStorage.getItem('userId') == null){ //if no user in session, do nothing
-    } else {
-      
-        let res = await fetch(`http://${url}:8080/accounts/${account}`, { // get account
-            'credentials': 'include',
-            'method': 'GET',
-            'headers': {
-                'Access-Control-Allow-Origin':'*',
-                'Content-Type': 'application/json'
-            }
-        });
-
+      });
+      if (res.status == 200) {
         let data = await res.json();
-        if (res.status == 200){
-
-            acctNum.innerHTML = data.accountId; 
-            acctType.innerHTML = data.typeName;
-
-
-            acctAmount.innerHTML = `\$${numWCommas((data.balance/100).toFixed(2))}`;
-            for (user of data.accountOwners){
-                let cell = document.createElement('p');
-                cell.innerHTML = user;
-                userList.appendChild(cell);
-            }
+        acctNum.innerHTML = data.accountId;
+        acctType.innerHTML = data.typeName;
+        acctAmount.innerHTML = `\$${numWCommas((data.balance / 100).toFixed(2))}`;
+        for (user of data.accountOwners) {
+          let cell = document.createElement('p');
+          cell.innerHTML = user;
+          userList.appendChild(cell);
         }
+      }
 
-        // Commented out until endpoint is replaced
+      // Commented out until endpoint is replaced
 
-        // let allIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}`, {
-        //         'credentials': 'include',
-        //         'method': 'GET',
-        //         'headers': {
-        //             'Access-Control-Allow-Origin':'*',
-        //             'Content-Type': 'application/json'
-        
-        //         }
-        //     });
-        //     let allIncomeRes = await allIncome.json();
-        //     console.log("all income", numWCommas((allIncomeRes/100).toFixed(2)))
-        //     allTimeIncome.innerHTML = "";
-        //     allTimeIncome.innerHTML = `\$${numWCommas((allIncomeRes/100).toFixed(2))}`
+      let allIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}`, {
+        'credentials': 'include',
+        'method': 'GET',
+        'headers': {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }
+      });
+      if (allIncome.status == 200) {
+        let allIncomeRes = await allIncome.json();
+        console.log("all income", numWCommas((allIncomeRes / 100).toFixed(2)))
+        allTimeIncome.innerText = "";
+        allTimeIncome.innerText = `\$${numWCommas((allIncomeRes / 100).toFixed(2))}`
+      }
 
 
-        // fetch and input income for account for the current month
-            let monthIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}/0/0`, {
-                'credentials': 'include',
-                'method': 'GET',
-                'headers': {
-                    'Access-Control-Allow-Origin':'*',
-                    'Content-Type': 'application/json'
-        
-                }
-            });
-            let monthIncomeRes = await monthIncome.json();
-            console.log("month income", numWCommas((monthIncomeRes/100).toFixed(2)))
-            currentMonthIncome.innerHTML = "";
-            currentMonthIncome.innerHTML = `\$${numWCommas((monthIncomeRes/100).toFixed(2))}`
+      // fetch and input income for account for the current month
+      let monthIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}/0/0`, {
+        'credentials': 'include',
+        'method': 'GET',
+        'headers': {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
 
-        //Fetch transactions
+        }
+      });
+      if (monthIncome.status == 200) {
+        let monthIncomeRes = await monthIncome.json();
+        console.log("month income", numWCommas((monthIncomeRes / 100).toFixed(2)));
+        currentMonthIncome.innerText = "";
+        currentMonthIncome.innerText = `\$${numWCommas((monthIncomeRes / 100).toFixed(2))}`;
+      }
 
-        let transx = await fetch(`http://${url}:8080/trx/account/${account}`, { //--------------------!!!------------
-            'credentials': 'include',
-            'method': 'GET',
-            'headers': {
-                'Access-Control-Allow-Origin':'*',
-                'Content-Type': 'application/json'
-            }
-        });
+      //Fetch transactions
+
+      let transx = await fetch(`http://${url}:8080/trx/account/${account}`, { //--------------------!!!------------
+        'credentials': 'include',
+        'method': 'GET',
+        'headers': {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }
+      });
+      if (transx.status == 200) {
         let transactions = await transx.json();
-   
-        addIncomeToTable(transactions);
 
+        addIncomeToTable(transactions);
+      }
     }
+  } catch (err) {
+    userList.innerHTML = "";
+    userList.innerHTML = "You are not logged in!";
+    console.log(err);
+  }
 })
 
-function addIncomeToTable(transactions){
-    let transxTable = document.querySelector('#transactions-table tbody');
-    transxTable.innerHTML = '';
-    for (transx of transactions) {
-      //create row
-        let row = document.createElement('tr');
-        row.setAttribute("id", `Transaction ${transx.transactionId}`)
+function addIncomeToTable(transactions) {
+  let transxTable = document.querySelector('#transactions-table tbody');
+  transxTable.innerHTML = '';
+  for (transx of transactions) {
+    //create row
+    let row = document.createElement('tr');
+    row.setAttribute("id", `Transaction ${transx.transactionId}`)
 
-      //create date cell
-        let date = document.createElement('td');
+    //create date cell
+    let date = document.createElement('td');
 
-            // check resolveTime, set time based on resovleTime if resolved, request time if not resolved
-        if (transx.resolveTime == null) {
-            date.innerHTML = new Date(transx.requestTime).toLocaleDateString();
-        } else {
-            date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
-        }
-
-
-            // set row to green if income, yellow if expense
-        if (acctNum.textContent == transx.receivingId){
-            row.setAttribute("class", "has-background-primary-light");
-        } else {
-            row.setAttribute("class", "has-background-warning-light")
-        }        
-        
-            // set type
-        let type = document.createElement('td');
-        type.innerHTML = transx.description;
-
-            //set amount
-        let amount = document.createElement('td');
-        amount.innerHTML = numWCommas((transx.amount/100).toFixed(2));
-        
-            //set status
-        let status = document.createElement('td');
-        status.innerHTML = transx.typeName;
-        
-            //append cells to row
-        row.appendChild(date);
-        row.appendChild(type);
-        row.appendChild(amount);
-        row.appendChild(status);
-        
-            //append row to table
-        transxTable.appendChild(row);
-
-
+    // check resolveTime, set time based on resovleTime if resolved, request time if not resolved
+    if (transx.resolveTime == null) {
+      date.innerHTML = new Date(transx.requestTime).toLocaleDateString();
+    } else {
+      date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
     }
+
+
+    // set row to green if income, yellow if expense
+    if (acctNum.textContent == transx.receivingId) {
+      row.setAttribute("class", "has-background-primary-light");
+    } else {
+      row.setAttribute("class", "has-background-warning-light")
+    }
+
+    // set type
+    let type = document.createElement('td');
+    type.innerHTML = transx.description;
+
+    //set amount
+    let amount = document.createElement('td');
+    amount.innerHTML = numWCommas((transx.amount / 100).toFixed(2));
+
+    //set status
+    let status = document.createElement('td');
+    status.innerHTML = transx.typeName;
+
+    //append cells to row
+    row.appendChild(date);
+    row.appendChild(type);
+    row.appendChild(amount);
+    row.appendChild(status);
+
+    //append row to table
+    transxTable.appendChild(row);
+
+
+  }
 }
 
 
@@ -189,42 +187,42 @@ function addIncomeToTable(transactions){
 //     transactionMenu.classList.toggle('is-active');
 // })
 
-    // add event listeners to the transaction dropdown. When any is clicked, remove is-active from all and set is-active to clicked one.
+// add event listeners to the transaction dropdown. When any is clicked, remove is-active from all and set is-active to clicked one.
 const transactionDDown = document.querySelectorAll('#transaction-types a');
 transactionDDown.forEach((item) => {
-    item.addEventListener('click', () => {
-        transactionDDown.forEach(a => a.classList.remove('is-active'));
-        item.classList.add('is-active');
-        let text = item.getAttribute('value');
-        let tag = document.getElementById('transaction-text');
-        tag.innerHTML = text;
-    })
+  item.addEventListener('click', () => {
+    transactionDDown.forEach(a => a.classList.remove('is-active'));
+    item.classList.add('is-active');
+    let text = item.getAttribute('value');
+    let tag = document.getElementById('transaction-text');
+    tag.innerHTML = text;
+  })
 })
 
 
 
 
-        // handle submitting transfer to another account owned by 
-submitTransferButton.addEventListener('click', async ()=> {
-    let amount  = (transferAmountDollars.value);
-    let rid = receivingId.value;
-    console.log(rid)
-    let email = sessionStorage.getItem("email");
-    let res = await fetch(`http://${url}:8080/trx/accounts`, {
-      'credentials': 'include',
-      'method': 'POST',
-      'headers': {
-          'Content-Type': 'application/json'
-      },
-      'body': JSON.stringify({
-        "sendingId": account,
-        "receivingId": rid,
-        "amount":amount,
-        "email":email
-  
-        
-      })
+// handle submitting transfer to another account owned by 
+submitTransferButton.addEventListener('click', async () => {
+  let amount = (transferAmountDollars.value);
+  let rid = receivingId.value;
+  console.log(rid)
+  let email = sessionStorage.getItem("email");
+  let res = await fetch(`http://${url}:8080/trx/accounts`, {
+    'credentials': 'include',
+    'method': 'POST',
+    'headers': {
+      'Content-Type': 'application/json'
+    },
+    'body': JSON.stringify({
+      "sendingId": account,
+      "receivingId": rid,
+      "amount": amount,
+      "email": email
+
+
+    })
   })
-//   reload page after transfer
+  //   reload page after transfer
   location.reload();
 })
