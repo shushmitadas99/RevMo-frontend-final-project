@@ -2,6 +2,8 @@ let submitButton = document.getElementById("submit-btn");
 let typeIdInput = document.getElementById("type-id-input");
 let amountInput = document.getElementById('amount-input');
 let confirmation = document.getElementById('error-messages');
+let confirmationlink = document.getElementById('error-messages-link');
+
 let newAccountConfirmation = document.getElementById('create-message');
 let idButtons = document.querySelectorAll('input[name="account-type-id"]');
 let unlinkButton = document.getElementById("unlink-btn"); 
@@ -41,7 +43,6 @@ function setEmail(){
 async function getAllAccounts(){
   let email = sessionStorage.getItem("email");
   document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
-  console.log("here");
   document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
   document.getElementById("th-1").innerHTML = "ID";
   document.getElementById("th-2").innerHTML = "Balance";
@@ -63,13 +64,31 @@ async function getAllAccounts(){
   
           let data = await res.json();
           sessionStorage.setItem("accounts", data);
+
+          for(let i = 0; i<(data).length;i++){
+            let unlinkIdOption = document.createElement('option');
+            let sendingIdOption = document.createElement('option');
+            let receivingIdOption = document.createElement('option');
+            
+            unlinkIdOption.text = data[i].accountId;
+            unlinkIdOption.value = data[i].accountId;
+            sendingIdOption.text = data[i].accountId;
+            sendingIdOption.value = data[i].accountId;
+            receivingIdOption.text = data[i].accountId;
+            receivingIdOption.value = data[i].accountId;
+           
+
+            unlinkAccountId.appendChild(unlinkIdOption);
+            sendingId.appendChild(sendingIdOption);
+            receivingId.appendChild(receivingIdOption);
+        }
           addAccounts(data);
-          console.log(data);
+          // console.log(data);
           
   }
   
   catch(err) {
-    console.log(err);
+    // console.log(err);
     accountsList.innerHTML = "";
     accountsList.innerHTML = "You are not logged in!";
 }
@@ -155,12 +174,11 @@ function addAccounts(accounts){
       trxlist.addEventListener('click', (e) => {
           sessionStorage.setItem("account", e.target.id);
           window.location.href = './account.html';
-          console.log(`clicked "view account" for account ${e.target.id}`)})
+          })
 
       accountId.addEventListener('click', async (e) => {
         sessionStorage.setItem("accountId", e.target.innerHTML)
         let accountId = sessionStorage.getItem("accountId");
-        console.log(accountId);
 
         backButton.innerHTML = "Back to Accounts";
         backButton.style.color = 'blue';
@@ -188,7 +206,6 @@ function addAccounts(accounts){
           }});
   
           let data = await res.json();
-          console.log(data);
 
           addTrx(data);
 
@@ -228,7 +245,6 @@ function addTrx(trxs){
   
 
   for (trx of trxs) {
-      console.log(trx);
 
       let row = document.createElement('tr');
       
@@ -267,24 +283,49 @@ let aid = linkAccountId.value;
       'Content-Type': 'application/json'}
     })
     let data = await res.json;
+    if(res.status == 200){
     window.location.reload();
+    }
+    if(res.status == 400){
+      confirmationlink.innerHTML = "Account Not Found"
+      confirmationlink.style.color = "red";
+      confirmation.style.fontWeight = "bold";
+      confirmation.style.position = "center";
+    }
+    if(res.status == 404){
+      confirmationlink.innerHTML = "Enter An Account Number"
+      confirmationlink.style.color = "red";
+      confirmation.style.fontWeight = "bold";
+      confirmation.style.position = "center";
+    }
 })
 
   
 unlinkButton.addEventListener('click', async ()=>{
+  // function doublecheck() {
+  //   let text;
+  //   let confirm = false;
+  //   if (confirm("Press a button!") == true) {
+  //     text = "You pressed OK!";
+  //     confirm = true;
+  //   } else {
+  //     text = "You canceled!";
+  //   }
+  // }
+  //   if(confirm == true){
+  
 let email = sessionStorage.getItem("email");
 let aid = unlinkAccountId.value;
-console.log(aid);
   let res = await fetch(`http://${url}:8080/accounts/${aid}/users/${email}`, {
     'credentials': 'include',
     'method': 'Delete',
     'headers': {
       'Content-Type': 'application/json'}
     })
-    let data = await res.json;
-    console.log(data);
     window.location.reload();
+// }
 })
+
 
 submitTransferButton.addEventListener('click', async ()=> {
   let amount  = (transferAmountDollars.value);
@@ -308,4 +349,5 @@ submitTransferButton.addEventListener('click', async ()=> {
 })
 location.reload();
 console.log(res);
+
 })

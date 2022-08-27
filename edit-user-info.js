@@ -20,7 +20,7 @@ window.addEventListener('load', async () => {
             }});
     
             let data = await res.json();
-            console.log(data);
+            // console.log(data);
             // phone.attributes('placeholder', `${data.phoneNumber}`);
 
             let prevPhone = document.createAttribute("value");
