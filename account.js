@@ -204,10 +204,12 @@ transactionDDown.forEach((item) => {
 
 // handle submitting transfer to another account owned by 
 submitTransferButton.addEventListener('click', async () => {
+  errMsgs.innerText = "";
   let amount = (transferAmountDollars.value);
   let rid = receivingId.value;
   console.log(rid)
   let email = sessionStorage.getItem("email");
+  let requesterId = sessionStorage.getItem('userId');
   let res = await fetch(`http://${url}:8080/trx/accounts`, {
     'credentials': 'include',
     'method': 'POST',
@@ -215,23 +217,26 @@ submitTransferButton.addEventListener('click', async () => {
       'Content-Type': 'application/json'
     },
     'body': JSON.stringify({
+      "requesterId": requesterId,
       "sendingId": account,
       "receivingId": rid,
       "amount": amount,
-      "email": email
+      "receivingEmail": email
 
 
     })
   })
   if (res.status == 400) {
-    errMsgs.innerHTML = ""
     let data = await res.json();
-    let errorElement = document.createElement('p');
-    errorElement.innerHTML = data;
-    errorElement.style.color = 'red';
-    errorElement.style.fontWeight = 'bold';
-    userList.appendChild(errorElement);
+    console.log(data);
+    // let errorElement = document.createElement('p');
+    errMsgs.innerText = data;
+    errMsgs.style.color = 'red';
+    errMsgs.style.fontWeight = 'bold';
+    // userList.appendChild(errorElement);
+  } else {
+    location.reload();
   }
   //   reload page after transfer
-  //location.reload();
+
 })
