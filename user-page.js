@@ -8,9 +8,14 @@ let phoneDiv = document.getElementById('phone');
 let hello = document.getElementById('hello');
 let userId = sessionStorage.getItem('userId');
 let incomeBtn = document.getElementById('my-income');
+let currentMonthIncome = document.getElementById('current-month-total-income');
+let allTimeIncome = document.getElementById('all-time-total-income');
 
 let sendButton = document.getElementById('sending-transfer-btn');
 let requestButton = document.getElementById('request-transfer-btn');
+let uId = sessionStorage.getItem("userId");
+console.log("userId", uId)
+
 
 window.addEventListener('load', async () => {
     console.log('in window load block load-test.js');
@@ -37,6 +42,35 @@ window.addEventListener('load', async () => {
            
             
             addAccounts(data.accounts);
+
+            let allIncome = await fetch(`http://${url}:8080/trx/income-by-user/${uId}`, {
+                'credentials': 'include',
+                'method': 'GET',
+                'headers': {
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type': 'application/json'
+        
+                }
+            });
+            let allIncomeRes = await allIncome.json();
+            console.log("all income", numWCommas((allIncomeRes/100).toFixed(2)))
+            allTimeIncome.innerHTML = "";
+            allTimeIncome.innerHTML = `\$${numWCommas((allIncomeRes/100).toFixed(2))}`
+
+            let monthIncome = await fetch(`http://${url}:8080/trx/income-by-user/${uId}/0/0`, {
+                'credentials': 'include',
+                'method': 'GET',
+                'headers': {
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type': 'application/json'
+        
+                }
+            });
+            let monthIncomeRes = await monthIncome.json();
+            console.log("month income", numWCommas((monthIncomeRes/100).toFixed(2)))
+            currentMonthIncome.innerHTML = "";
+            currentMonthIncome.innerHTML = `\$${numWCommas((monthIncomeRes/100).toFixed(2))}`
+
     
         } catch(err) {
             
