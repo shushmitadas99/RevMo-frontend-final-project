@@ -148,6 +148,7 @@ function addAccounts(accounts){
       amount.innerHTML = `$${(account.balance/100).toFixed(2)}`
       accountId.style.color = 'blue';
       accountId.style.textDecoration = 'underline';
+      accountId.style.cursor = 'pointer';
       
       let trxlist = document.createElement('td');
       trxlist.innerHTML = `<button class="button is-info is-light has-text-weight-semibold my-2" id="${accounts.accountId}">View Transactions</button>`;
@@ -164,6 +165,7 @@ function addAccounts(accounts){
         backButton.innerHTML = "Back to Accounts";
         backButton.style.color = 'blue';
         backButton.style.textDecoration = 'underline';
+        backButton.style.cursor = 'pointer';
 
         // backButton.addEventListener('click', )
         
