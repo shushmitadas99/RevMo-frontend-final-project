@@ -28,9 +28,8 @@ let account = sessionStorage.getItem("account");
 window.addEventListener('load', async () => {
 
     try {
-        
-        let res1 = await fetch(`http://${url}:8080/user`, {
-        
+       
+        let res1 = await fetch(`http://${url}:8080/user`, {   // get user info 
         'credentials': 'include',
         'method': 'GET',
         'headers': {
@@ -55,9 +54,10 @@ window.addEventListener('load', async () => {
         console.log(err);
     } 
 
-    if(sessionStorage.getItem('userId') == null){
+    if(sessionStorage.getItem('userId') == null){ //if no user in session, do nothing
     } else {
-        let res = await fetch(`http://${url}:8080/accounts/${account}`, {
+      
+        let res = await fetch(`http://${url}:8080/accounts/${account}`, { // get account
             'credentials': 'include',
             'method': 'GET',
             'headers': {
@@ -65,10 +65,11 @@ window.addEventListener('load', async () => {
                 'Content-Type': 'application/json'
             }
         });
+
         let data = await res.json();
         if (res.status == 200){
-            acctNum.innerHTML = "";
-            acctNum.innerHTML = data.accountId;
+
+            acctNum.innerHTML = data.accountId; 
             acctType.innerHTML = data.typeName;
 
             acctAmount.innerHTML = `\$${numWCommas((data.balance/100).toFixed(2))}`;
@@ -78,6 +79,9 @@ window.addEventListener('load', async () => {
                 userList.appendChild(cell);
             }
         }
+
+        // Commented out until endpoint is replaced
+
         // let allIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}`, {
         //         'credentials': 'include',
         //         'method': 'GET',
@@ -92,6 +96,8 @@ window.addEventListener('load', async () => {
         //     allTimeIncome.innerHTML = "";
         //     allTimeIncome.innerHTML = `\$${numWCommas((allIncomeRes/100).toFixed(2))}`
 
+
+        // fetch and input income for account for the current month
             let monthIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}/0/0`, {
                 'credentials': 'include',
                 'method': 'GET',
@@ -106,7 +112,7 @@ window.addEventListener('load', async () => {
             currentMonthIncome.innerHTML = "";
             currentMonthIncome.innerHTML = `\$${numWCommas((monthIncomeRes/100).toFixed(2))}`
 
-        
+        //Fetch transactions
 
         let transx = await fetch(`http://${url}:8080/trx/account/${account}`, { //--------------------!!!------------
             'credentials': 'include',
@@ -115,49 +121,59 @@ window.addEventListener('load', async () => {
                 'Access-Control-Allow-Origin':'*',
                 'Content-Type': 'application/json'
             }
-    });
+        });
         let transactions = await transx.json();
    
-    addIncomeToTable(transactions);
+        addIncomeToTable(transactions);
 
     }
- })
+})
 
 function addIncomeToTable(transactions){
     let transxTable = document.querySelector('#transactions-table tbody');
     transxTable.innerHTML = '';
     for (transx of transactions) {
-
+      //create row
         let row = document.createElement('tr');
         row.setAttribute("id", `Transaction ${transx.transactionId}`)
+
+      //create date cell
         let date = document.createElement('td');
+
+            // check resolveTime, set time based on resovleTime if resolved, request time if not resolved
         if (transx.resolveTime == null) {
             date.innerHTML = new Date(transx.requestTime).toLocaleDateString();
         } else {
             date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
         }
 
+
+            // set row to green if income, yellow if expense
         if (acctNum.textContent == transx.receivingId){
             row.setAttribute("class", "has-background-primary-light");
         } else {
             row.setAttribute("class", "has-background-warning-light")
         }        
         
+            // set type
         let type = document.createElement('td');
         type.innerHTML = transx.description;
+
+            //set amount
         let amount = document.createElement('td');
         amount.innerHTML = numWCommas((transx.amount/100).toFixed(2));
         
+            //set status
         let status = document.createElement('td');
         status.innerHTML = transx.typeName;
         
-
+            //append cells to row
         row.appendChild(date);
         row.appendChild(type);
         row.appendChild(amount);
         row.appendChild(status);
         
-
+            //append row to table
         transxTable.appendChild(row);
 
 
@@ -172,6 +188,7 @@ function addIncomeToTable(transactions){
 //     transactionMenu.classList.toggle('is-active');
 // })
 
+    // add event listeners to the transaction dropdown. When any is clicked, remove is-active from all and set is-active to clicked one.
 const transactionDDown = document.querySelectorAll('#transaction-types a');
 transactionDDown.forEach((item) => {
     item.addEventListener('click', () => {
@@ -186,7 +203,7 @@ transactionDDown.forEach((item) => {
 
 
 
-
+        // handle submitting transfer to another account owned by 
 submitTransferButton.addEventListener('click', async ()=> {
     let amount  = (transferAmountDollars.value);
     let rid = receivingId.value;
@@ -207,6 +224,6 @@ submitTransferButton.addEventListener('click', async ()=> {
         
       })
   })
-//   console.log(localStorage.getItem("AllAccounts"));
+//   reload page after transfer
   location.reload();
-  })
+})
