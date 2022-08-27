@@ -171,9 +171,10 @@ sendButton.addEventListener('click', async () => {
     let sendInput = document.getElementById('sending-sending-id');
     let receiveInput = document.getElementById('sending-receiving-id');
     let amount = document.getElementById('sending-amount-dollars');
+    let error = document.getElementById('error-messages-send-money')
 console.log(sendInput.value)
     try {
-        let res = await fetch(`http://${url}:8080/trx-send`, {
+        let res = await fetch(`http://${url}:8080/trx`, {
           
             'credentials': 'include',
             'method': 'POST',
@@ -186,19 +187,28 @@ console.log(sendInput.value)
                 "receivingEmail": receiveInput.value,
                 "amount": amount.value
             })
-    })} catch (err) {
+           
+        })
+        
+         if (res.status() == 400){
+                // alert("Not Enough Money");
+            }
+        
+        } catch (err) {
         console.log(err)
     }
+    
     location.reload();
 })
 
 requestButton.addEventListener('click', async () => {
+    console.log("here")
     let sendInput = document.getElementById('request-sending-id');
     let receiveInput = document.getElementById('request-receiving-id');
     let amount = document.getElementById('request-amount-dollars');
 
     try {
-        let res = await fetch(`http://${url}:8080/trx-req`, {
+        let res = await fetch(`http://${url}:8080/trx/req`, {
           
             'credentials': 'include',
             'method': 'POST',

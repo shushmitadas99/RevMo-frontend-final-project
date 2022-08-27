@@ -79,7 +79,7 @@ async function addTableForAccount(accounts) {
                         console.log()
                         // endpoint expects JSON { "statusId": "{2 for approved, 3 for denied}", "transactionId": "{trxId}"}
             
-                        await fetch(`http://${url}:8080/trx-req`, {
+                        await fetch(`http://${url}:8080/trx/req`, {
                             'credentials': 'include',
                             'method': 'PUT',
                             'headers': {
