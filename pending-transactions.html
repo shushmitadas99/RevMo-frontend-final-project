@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Home</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
+    <title>Pending Transactions</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
     <link rel="icon" type="image/png" href="/images/revmo-temp.png">
 
     <script defer src="./header.js"></script>
-    <script defer src="./income.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
+    <script defer src="./pending-transactions.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
@@ -52,7 +52,6 @@
 
 <!-- Main Body-->
     
-    
     <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
       adding 'is-half' or 'is-6' to the class does the same thing
       so class="column is-half" could take up half the screen
@@ -60,40 +59,41 @@
     
       When you make a box, to separate it from the header, add 'my-4' to the class list-->
 
-    <div class="columns box m-3">
-      <div class="column is-2"></div>
-      <div class="column is-8" id="tables-column">
-        <h1 class="is-size-3">Accounts with incoming transactions</h1>
-          <p>
-            <span>
-              <label class="label">Months to Display:</label>
-            </span>
-            <span>
-              <input class="input" style="width: 10%" type="text" placeholder="3" id="months-to-display">
-            </span>
-            <span>
-              <button class="button is-primary is-light" id="refresh">Refresh</button>
-            </span>
-          </p>
-           
-          
-        
-        <!-- Template for table-->
-        <!-- <table class="table has-text-centered is-fullwidth" id="income-table">
-            <thead>
-                <tr class="has-text-centered">
-                  <th>Year</th>  
-                  <th>Month</th> 
-                  <th>Total Income</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
+    <div class="columns">
+      <div class="column"></div>
 
-            </tbody>
-        </table> -->
+      <div class="column is-three-quarters">
+        <div class="box m-4" id="tables-column">
+          <h1 class="is-size-3">Pending Transactions</h1>
+            <!-- <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Date Requested</th>
+                        <th>Amount</th>
+                        <th>Requested By</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="pending-transactions-table">
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>
+                      <button class="button is-primary">Approve</button>
+                      <button class="button is-danger">Deny</button>
+                    </th>
+                  </tr>
+
+                </tbody>
+            </table> -->
+
+        </div>
       </div>
-      <div class="column is-2"></div>
+
+      <div class="column"></div>
     </div>
     
 </body>

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Page</title>
+    <link rel="icon" type="image/png" href="/images/revmo-temp.png">
 
     <script defer src="./header.js"></script>
     <script defer src="./user-page.js"></script>
@@ -74,12 +75,112 @@
                     <p>Primary phone: </p>
                     <p id="phone" class="px-3"></p>
                 </p>
+                
                 <a href="./edit-user-info.html"><button class="button is-light" id="edit-user-info-btn">  Edit User Info </button></a>
             </div>
             <div class="box">
-                <button class="button is-light" id="my-income">Track My Income</button>
+                <p>
+                    <span>
+                        <p>
+                            <span>Current month:</span>
+                            <span id="current-month-total-income">$$$</span>     
+                        </p>
+                        <p>
+                            <span>All time:</span>
+                            <span id="all-time-total-income">$$$</span>
+                        </p>
+                    </span>
+                    <span>
+                        <button class="button is-light m-1" id="my-income">All Income</button> 
+                    </span>
+                    
+                    
+                </p>
+                <p>
+                    <a href="./pending-transactions.html"><button class="button is-light m-1" id="pending Transactions">Pending Transactions </button></a>
+                </p>
+                </div>
+
+        <div class="box">
+                <div>
+                    <form class="box is-shadowless my-5">
+                      <h2 class="title is-size-4 has-text-centered">Send Money</h2>
+                      <div id="error-messages-send-money"></div>
+              
+              
+                      <div class="field">
+                        <label class="label">Sending Id</label>
+                        <div class="control">
+                          <select class="input" id="sending-sending-id">
+                            <!-- <option>Select Account</option>  -->
+
+                          </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Receiving Email</label>
+                      <div class="control">
+                        <input class="input" type="text" placeholder="Enter receiving ID" id="sending-receiving-id">
+                      </div>
+                    </div>
+              
+              
+                      <div class="field">
+                          <label class="label">Amount (in cents)</label>
+                          <div class="control">
+                            <input class="input" type="number" placeholder="Enter amount" id="sending-amount-dollars">
+                          </div>
+                      </div>
+                      
+                      <div>
+                          <a class="button is-info" id="sending-transfer-btn" type="submit" >
+                            Submit
+                          </a>
+                      </div>
+                  </form>
+                  </div>
+                </div>
+                  <div>
+                    <form class="box is-shadowless my-5">
+                      <h2 class="title is-size-4 has-text-centered">Request Money</h2>
+                      <div id="error-messages"></div>
+              
+              
+                      <div class="field">
+                        <label class="label">Request Email</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Enter sending ID" id="request-sending-id">
+                        </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Receiving Id</label>
+                      <div class="control">
+                        <select class="input" id="request-receiving-id">
+                            <!-- <option>Select Account</option>  -->
+                        </select>
+                      </div>
+                    </div>
+              
+              
+                      <div class="field">
+                          <label class="label">Amount (in cents)</label>
+                          <div class="control">
+                            <input class="input" type="number" placeholder="Enter amount" id="request-amount-dollars">
+                          </div>
+                      </div>
+                      
+                      <div>
+                          <a class="button is-info" id="request-transfer-btn" type="submit" >
+                            Submit
+                          </a>
+                      </div>
+                  </form>
+                  </div>
+
             </div>
-        </div>
+            
+        
+        
     <!-- Account Info-->
         <div class="column is-9 pr-5">
             <div class="box" id="accounts-list">
