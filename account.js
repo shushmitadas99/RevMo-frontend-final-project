@@ -204,6 +204,7 @@ transactionDDown.forEach((item) => {
 
 // handle submitting transfer to another account owned by 
 submitTransferButton.addEventListener('click', async () => {
+  console.log("session email", sessionStorage.getItem('email'));
   errMsgs.innerText = "";
   let amount = (transferAmountDollars.value);
   let rid = receivingId.value;
