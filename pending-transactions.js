@@ -101,7 +101,7 @@ async function addTableForAccount(accounts) {
           deny.innerHTML = "Deny"
           deny.addEventListener('click', async (e) => {
             console.log(`Deny request #${e.target.id} clicked!`)
-            await fetch(`http://${url}:8080/trx-req`, {
+            await fetch(`http://${url}:8080/trx/req`, {
               'credentials': 'include',
               'method': 'PUT',
               'headers': {

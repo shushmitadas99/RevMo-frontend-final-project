@@ -9,7 +9,10 @@ let userId = sessionStorage.getItem('userId');
 let incomeBtn = document.getElementById('my-income');
 let currentMonthIncome = document.getElementById('current-month-total-income');
 let allTimeIncome = document.getElementById('all-time-total-income');
-
+let sendInput = document.getElementById('sending-sending-id');
+let receiveInput = document.getElementById('sending-receiving-id');
+let amount = document.getElementById('sending-amount-dollars');
+let error = document.getElementById('error-messages-send-money');
 let sendButton = document.getElementById('sending-transfer-btn');
 let requestButton = document.getElementById('request-transfer-btn');
 let uId = sessionStorage.getItem("userId");
@@ -167,10 +170,7 @@ function addAccounts(accts) {
 
 sendButton.addEventListener('click', async () => {
 
-  let sendInput = document.getElementById('sending-sending-id');
-  let receiveInput = document.getElementById('sending-receiving-id');
-  let amount = document.getElementById('sending-amount-dollars');
-  let error = document.getElementById('error-messages-send-money')
+
   console.log(sendInput.value)
   try {
     let res = await fetch(`http://${url}:8080/trx`, {
@@ -188,16 +188,20 @@ sendButton.addEventListener('click', async () => {
       })
 
     })
-
-    if (res.status() == 400) {
-      // alert("Not Enough Money");
+    if (res.status == 400) {
+      let data = await res.json();
+      error.innerText = data;
+      error.style.color = 'red';
+      error.style.fontWeight = 'bold';
+    } else if (res.status == 200) {
+      location.reload();
     }
 
   } catch (err) {
     console.log(err)
   }
 
-  location.reload();
+
 })
 
 requestButton.addEventListener('click', async () => {
