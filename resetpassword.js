@@ -1,11 +1,14 @@
 let passwordInput = document.querySelector("#new_password");
 let cnfrmPasswordInput = document.querySelector("#confirm_password");
+let emailInput = document.querySelector("#email_check")
 let message = document.querySelector("#password_message");
 document.getElementById("reset_password").addEventListener("click", resetPassword);
 
 async function resetPassword() { 
     try {
-       if (passwordInput==cnfrmPasswordInput)
+        console.log(passwordInput.value)
+        console.log(cnfrmPasswordInput.value)
+       if (passwordInput.value==cnfrmPasswordInput.value)
     {let res = await fetch(`http://localhost:8080/resetpassword`,{
             method:"POST", 
             method: "PUT",
@@ -13,25 +16,16 @@ async function resetPassword() {
                 "Content-Type" : "application/json"
             },
             body: JSON.stringify({
-                passwordInput: passwordInput.value,
-                cnfrmPasswordInput: cnfrmPasswordInput.value
+                newpassword: passwordInput.value,
+                email: emailInput.value,
+
             }),
         });
-        if (res.status == 202){
-            let data = await res.json;
-            let password = data.password;
-            let cnfrmPassword = data.cnfrmPassword
-            
+        if (res.status == 201){
+            alert("Password Reset Successfully!")
         }
         if (res.status == 401){
-            data = await res.json();
-            console.log("401 status gopu");
-            emailInput.value = "";
-            console.log("401 status gopu2");
-            let para = document.querySelector("#password_message");
-            console.log(`para = ${para}`);
-            para.style.color = "black";
-            para.innerHTML = data.message;
+            alert("Password Reset Unsucesssful!")
 
         }}else{
             alert("Password does not match!")

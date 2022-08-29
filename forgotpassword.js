@@ -13,9 +13,8 @@ async function forgotEmail() {
                 email: emailInput.value
             }),
         });
-        if (res.status == 200){
-            let data = await res.json;
-            let email = data.email
+        if (res.status == 202){
+            alert("Please Check Your Email for the Passoword Reset link!")
             
         }
         if (res.status == 401){
