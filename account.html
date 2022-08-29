@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Account</title>
-
+    <link rel="icon" type="image/png" href="/images/revmo-temp.png">
     <script defer src="./header.js"></script>
-
-
     <script defer src="/account.js"></script> 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -17,40 +15,39 @@
 <body>
 
 <!-- Navbar -->
-    <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
+<nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
 
-        <div class="navbar-brand">
-          <a href="./index.html" class="navbar-item">
-              <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
-          </a>
-  
-          <a class="navbar-burger" id="burger">
-              <span></span>
-              <span></span>   
-              <span></span>
-          </a> 
+    <div class="navbar-brand">
+      <a href="./index.html" class="navbar-item">
+          <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
+      </a>
+
+      <a class="navbar-burger" id="burger">
+          <span></span>
+          <span></span>   
+          <span></span>
+      </a> 
+    </div>
+
+    <div class="navbar-menu" id="nav-links">
+        <div class="navbar-end">
+            <!-- Navbar Stuff Goes Here in this format: -->
+            <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
+            <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
+
         </div>
-
-        <div class="navbar-menu" id="nav-links">
-            <div class="navbar-end">
-                <!-- Navbar Stuff Goes Here in this format: -->
-                <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
-                <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
-                <a class="navbar-item" id="transfer-money">Transfer Money</a>
-
+        <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-info" href="/login.html" id="login-btn">
+                <strong>Log in</strong>
+              </a>
+              <a class="button is-info" id="logout-btn">
+                Log out
+              </a>
             </div>
-            <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button is-info" href="/login.html" id="login-btn">
-                    <strong>Log in</strong>
-                  </a>
-                  <a class="button is-info" id="logout-btn">
-                    Log out
-                  </a>
-                </div>
-              </div>
-        </div>
-    </nav>
+          </div>
+    </div>
+</nav>
 
 <!-- Main Body-->
     
@@ -87,35 +84,86 @@
 
         
 
-    <div class="box">
+    
 
         <div class="columns">
-            <div class="column is-quarter has-text-centered">
-                <div class="box">
-                    <p>
-                        <button class="button is-light my-1" id="request-transfer">Request Money</button>
-                    </p>
-                    <p>
-                        <button class="button is-light my-1" id="send-money">Send Money</button>
-                    </p>
-                    <!-- <p>
-                        <button class="button is-light my-1" id="add-user">Add User</button>
-                    </p>
-                    <p>
-                        <button class="button is-light my-1" id="remove-user">Remove User</button>
-                    </p> -->
-                </div>
+            
+                <div class="column is-one-third">
+                    <div class="box">
+                        <span>
+                            <p>
+                                <span>Current month:</span>
+                                <span id="current-month-total-income"></span>     
+                            </p>
+                            <p>
+                                <span>All time:</span>
+                                <span id="all-time-total-income"></span>
+                            </p>
+                        </span>
+                       
+                      
+                    </div>
+                    <div id="xfer-between-accounts-div">
+                        <form class="box is-shadowless my-5">
+                            <h2 class="title is-size-4 has-text-centered">Transfer Between Accounts</h2>
+                            <div id="error-messages"></div>
+                    
+                    
+                            
+                            <div class="field">
+                            <label class="label">Receiving ID</label>
+                            <div class="control">
+                                <select class="input" id="transfer-receiving-id">
+                                </select>
+                                </div>
+                            </div>
+                    
+                    
+                            <div class="field">
+                                <label class="label">$(00.00) Amount</label>
+                                <div class="control">
+                                    <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-dollars">
+                                </div>
+                            </div>
+                            <!-- <div class="field">
+                                <label class="label">Amount (in pennies)</label>
+                                <div class="control">
+                                <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-pennies">
+                                </div>
+                            </div> -->
+                            <!-- <div class="field">
+                                <label class="label">Amount</label>
+                                <div class="control">
+                                <select class="dropdown" style="width: 100%; height: 30px" type="text" id="transfer-type">
+                                    <option>Select Type</option>
+                                <option value="1">Income</option>
+                                <option value="2">Transfer</option>
+                                <option value="3">Deposit</option>
+                                </select>
+                                </div> -->
+                            <!-- </div> -->
+                            <div>
+                                <a class="button is-info" id="submit-transfer-btn" type="submit" >
+                                    Submit
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+            
+
+               
+
 
                 
             </div>
             
 
             <div class="column is-three-quarters">
-                <div class="box">
-                    <div class="columns">
-                        <div class="column">
+                <div class="box mr-4">
+                    <!-- <div class="columns">
+                        <div class="column"> -->
                             <h1 class="is-size-3">Transactions</h1>
-                        </div>
+                        <!-- </div>
                         <div class="column">
                             <div class="dropdown" id="transaction-ddown">
                                 <div class="dropdown-trigger">
@@ -128,7 +176,7 @@
     
                             <div class="dropdown-menu" id="transaction-types" role="menu">
                                 <div class="dropdown-content">
-                                    <!-- <a class="dropdown-item" id="expenses" value="Expenses">
+                                    <a class="dropdown-item" id="expenses" value="Expenses">
                                     Expenses
                                     </a>
                                     <a class="dropdown-item" id="income" value="Income">
@@ -136,18 +184,18 @@
                                     </a>
                                     <a class="dropdown-item" id="pending" value="Pending">
                                         Pending
-                                    </a> -->
+                                    </a>
                                     <a class="dropdown-item is-active" value="All Transactions" id="all-transactions">
                                         All Transactions
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            </div> -->
+                        <!-- </div>
+                    </div> -->
 
-                </div>
+                <!-- </div> -->
             
-                <table class="table" id="transactions-table">
+                <table class="table px-7 is-fullwidth" id="transactions-table">
                     <thead>
                         <tr class="has-text-centered">
                             <th>Date</th> <!--completed else requested-->
@@ -165,7 +213,7 @@
             </div>
         </div>
 
-    </div>
+    
     
   
     

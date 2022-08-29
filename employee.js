@@ -2,67 +2,56 @@ let submitButton = document.getElementById("submit-btn");
 let typeIdInput = document.getElementById("type-id-input");
 let amountInput = document.getElementById('amount-input');
 let confirmation = document.getElementById('error-messages');
+let confirmationlink = document.getElementById('error-messages-link');
+
+let newAccountConfirmation = document.getElementById('create-message');
 let idButtons = document.querySelectorAll('input[name="account-type-id"]');
-let removeButton = document.getElementById("remove-btn"); 
-let accountId = document.getElementById("account-id");
+let unlinkButton = document.getElementById("unlink-btn"); 
+let linkButton = document.getElementById("link-btn");
+let linkAccountId = document.getElementById("link-account-id");
+let unlinkAccountId = document.getElementById("unlink-account-id");
 let accountIdInput = document.getElementById("account-id-input");
 let emailInput = document.getElementById("email-input"); 
 let searchEmailButton = document.getElementById('search-email-btn');
 let accountsList = document.getElementById('accounts-tbody');
+let submitTransferButton = document.getElementById('submit-transfer-btn');
+let transferAmountDollars = document.getElementById('transfer-amount-dollars');
+let transferAmountPennies = document.getElementById('transfer-amount-pennies');
+// let confirmation = document.getElementById('error-messages');
 
-// set active account
+let receivingId = document.getElementById('transfer-receiving-id');
+let sendingId = document.getElementById('transfer-sending-id');
+let transferType = document.getElementById('transfer-type');
+let backButton = document.getElementById('back-btn');
 
-// window.addEventListener('load', async () => {
-//   console.log('in window load block load-test.js');
-//       try {
-//           console.log("in try load-test.js");
-//           let res = await fetch(`http://${url}:8080/user`, {
-          
-//           'credentials': 'include',
-//           'method': 'GET',
-//           'headers': {
-//               'Access-Control-Allow-Origin':'*',
-//               'Content-Type': 'application/json'
+document.addEventListener('DOMContentLoaded', getAllAccounts)
+
+
+searchEmailButton.addEventListener("click", setEmail);
+backButton.addEventListener("click", getAllAccounts);
+
+function setEmail(){
+
+  sessionStorage.clear;
+  sessionStorage.setItem("email", emailInput.value); 
   
-//           }});
-  
-//           let data = await res.json();
-//           console.log(data);
-//           hello.innerHTML = "";
-//           hello.innerHTML = `Hello, ${data.firstName}`;
-//           nameDiv.innerHTML = `${data.firstName} ${data.lastName}` 
-//           emailDiv.innerHTML = data.email; 
-//           phoneDiv.innerHTML = data.phoneNumber; 
-//           console.log(data.accounts);
-  
-//           addAccounts(data.accounts);
-  
-//       } catch(err) {
-          
-//           accountsList.innerHTML = "";
-//           accountsList.innerHTML = "You are not logged in!";
-//           console.log(err);
-//       } 
 
-//   })
+  location.reload();
 
-// Add account
+}
 
-
-
-
-// Set active user
-
-
-
-searchEmailButton.addEventListener("click", async () => {
-
-  sessionStorage.setItem("email", emailInput.value);
+async function getAllAccounts(){
   let email = sessionStorage.getItem("email");
+  document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
+  document.getElementById("accounts-title").innerHTML = "Accounts for " + email;
+  document.getElementById("th-1").innerHTML = "ID";
+  document.getElementById("th-2").innerHTML = "Balance";
+  document.getElementById("th-3").innerHTML = "Type";
+  document.getElementById("th-4").innerHTML = "";
+  backButton.innerHTML = "";
   
-  console.log('in window load block load-test.js');
+  
       try {
-          console.log("in try load-test.js");
           let res = await fetch(`http://${url}:8080/${email}/accounts`, {
           
           'credentials': 'include',
@@ -74,15 +63,153 @@ searchEmailButton.addEventListener("click", async () => {
           }});
   
           let data = await res.json();
-          console.log(data);
-          // hello.innerHTML = "";
-          // hello.innerHTML = `Hello, ${data.firstName}`;
-          // nameDiv.innerHTML = `${data.firstName} ${data.lastName}` 
-          // emailDiv.innerHTML = data.email; 
-          // phoneDiv.innerHTML = data.phoneNumber; 
-          // console.log(data.accounts);
-  
+          sessionStorage.setItem("accounts", data);
+          unlinkAccountId.innerHTML = "";
+          sendingId.innerHTML = "";
+          receivingId.innerHTML= "";
+          for(let i = 0; i<(data).length;i++){
+            let unlinkIdOption = document.createElement('option');
+            let sendingIdOption = document.createElement('option');
+            let receivingIdOption = document.createElement('option');
+            
+            unlinkIdOption.text = data[i].accountId;
+            unlinkIdOption.value = data[i].accountId;
+            sendingIdOption.text = data[i].accountId;
+            sendingIdOption.value = data[i].accountId;
+            receivingIdOption.text = data[i].accountId;
+            receivingIdOption.value = data[i].accountId;
+           
+
+            unlinkAccountId.appendChild(unlinkIdOption);
+            sendingId.appendChild(sendingIdOption);
+            receivingId.appendChild(receivingIdOption);
+        }
           addAccounts(data);
+          // console.log(data);
+          
+  }
+  
+  catch(err) {
+    // console.log(err);
+    accountsList.innerHTML = "";
+    accountsList.innerHTML = "You are not logged in!";
+}
+}
+
+
+submitButton.addEventListener('click', async () => {
+
+ newAccountConfirmation.innerHTML = "";
+  let selectedRadioButton;
+  for (let radioBtn of idButtons) {
+      if (radioBtn.checked) {
+          selectedRadioButton = radioBtn
+          break;
+      }
+  }
+
+  let res = await fetch(`http://127.0.0.1:8080/accounts`, {
+      // 'mode': 'no-cors',
+      'credentials': 'include',
+      'method': 'POST',
+      'headers': {
+          'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify({
+          "typeId": selectedRadioButton.value
+      })
+  })
+
+if (res.status == 201) {
+  let data = await res.json();
+  // let accountId = data.accountId;
+  // alert("Account with number ${accountId} has been created")
+  let errorElement = document.createElement('p');
+  errorElement.innerHTML = data.accountId;
+  errorElement.style.color = 'green';
+  errorElement.style.fontWeight = 'bold';
+  newAccountConfirmation.appendChild(errorElement);
+
+  let email = sessionStorage.getItem("email");
+  // let aid = data.accountId
+  let res2 = await fetch(`http://${url}:8080/accounts/${data.accountId}/users/${email}`, {
+    'credentials': 'include',
+    'method': 'PUT',
+    'headers': {
+      'Content-Type': 'application/json'}
+    })
+    getAllAccounts();
+    if(res2.status == 200){
+    
+    location.reload();
+    }
+  }
+})
+
+
+
+
+function addAccounts(accounts){
+  
+  let acctsTable = document.getElementById('accounts-tbody');
+  acctsTable.innerHTML = '';
+  
+
+  for (account of accounts) {
+      // console.log(account);
+      // let accounts = sessionStorage.getItem("accounts");
+      // let accId = accounts.accountId;
+      // console.log(accounts)
+      let row = document.createElement('tr');
+      let accountId = document.createElement('td');
+      accountId.innerHTML = account.accountId;
+      let type = document.createElement('td');
+      type.innerHTML = account.typeName;
+      let amount = document.createElement('td');
+      amount.innerHTML = `$${(account.balance/100).toFixed(2)}`
+      accountId.style.color = 'blue';
+      accountId.style.textDecoration = 'underline';
+      accountId.style.cursor = 'pointer';
+      
+      let trxlist = document.createElement('td');
+      trxlist.innerHTML = `<button class="button is-info is-light has-text-weight-semibold my-2" id="${accounts.accountId}">View Transactions</button>`;
+      trxlist.addEventListener('click', (e) => {
+          sessionStorage.setItem("account", e.target.id);
+          window.location.href = './account.html';
+          })
+
+      accountId.addEventListener('click', async (e) => {
+        sessionStorage.setItem("accountId", e.target.innerHTML)
+        let accountId = sessionStorage.getItem("accountId");
+
+        backButton.innerHTML = "Back to Accounts";
+        backButton.style.color = 'blue';
+        backButton.style.textDecoration = 'underline';
+        backButton.style.cursor = 'pointer';
+
+        // backButton.addEventListener('click', )
+        
+        document.getElementById("th-1").innerHTML = "Date";
+        document.getElementById("th-2").innerHTML = "Status";
+        document.getElementById("th-3").innerHTML = "Amount";
+        document.getElementById("th-4").innerHTML = "Description";
+        document.getElementById("accounts-title").innerHTML = "Transactions for Account " + accountId;
+
+        try {
+          
+          let res = await fetch(`http://${url}:8080/trx/account/${accountId}`, {
+          
+          'credentials': 'include',
+          'method': 'GET',
+          'headers': {
+              'Access-Control-Allow-Origin':'*',
+              'Content-Type': 'application/json'
+  
+          }});
+  
+          let data = await res.json();
+
+          addTrx(data);
 
 
   }
@@ -94,87 +221,11 @@ searchEmailButton.addEventListener("click", async () => {
     console.log(err);
 }
 
-
-})
-
-//   function addAccounts(accts){
-//     for (acct of accts){
-//         let box = document.createElement('div');
-//         box.classList.add('box');
-//         let cols = document.createElement('div');
-//         cols.classList.add('columns');
-//         let col1 = document.createElement('div');
-//         col1.classList.add('column', 'is-two-fifths', 'has-text-centered-mobile');
         
-//         let p1 = document.createElement('p');
-//         let header = document.createElement('span');
-//         header.classList.add('is-size-4');
-//         header.innerHTML = "Account";
-//         let acctNum = document.createElement('span');
-//         acctNum.classList.add('px-5', 'is-size-4');
-//         acctNum.innerHTML = acct.accountId; 
-//         p1.appendChild(header)
-//         p1.appendChild(acctNum)
-        
-//         let p2 = document.createElement('p');
-//         p2.innerHTML = acct.typeName; 
 
-//         col1.appendChild(p1);
-//         col1.appendChild(p2);
-
-//         let col2 = document.createElement('div');
-//         col2.classList.add('column', 'is-size-3', 'has-text-centered-mobile', 'is-one-fifths-tablet', 'is-two-fifths-desktop');
-//         col2.innerHTML = `\$${(acct.balance/100).toFixed(2)}`; //------------check -----------------------
-
-//         let col3 = document.createElement('div');
-//         col3.classList.add('column', 'is-two-fifths-tablet', 'is-one-fifth-desktop', 'has-text-centered-mobile');
-
-//         let acctPage = document.createElement('div');
-//         acctPage.innerHTML =  `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Account</button>`;
-//         acctPage.addEventListener('click', (e) => {
-//             sessionStorage.setItem("account", e.target.id);
-//             window.location.href = './account.html';
-//             console.log(`clicked "view account" for account ${e.target.id}`)
-//         })
-
-
-//         col3.appendChild(acctPage);
-
-//         cols.appendChild(col1);
-//         cols.appendChild(col2);
-//         cols.appendChild(col3);
-
-//         box.appendChild(cols);
-
-//         accountsList.appendChild(box);
-
-//     }
-// }
-
-function addAccounts(accounts){
-  
-  let acctsTable = document.getElementById('accounts-tbody');
-  acctsTable.innerHTML = '';
-  
-
-  for (account of accounts) {
-      console.log(account);
-
-      let row = document.createElement('tr');
-      let accountId = document.createElement('td');
-      accountId.innerHTML = account.accountId;
-      let type = document.createElement('td');
-      type.innerHTML = account.typeName;
-      let amount = document.createElement('td');
-      amount.innerHTML = `$${(account.balance/100).toFixed(2)}`
+      })
       
-      // let trxlist = document.createElement('td');
-      // trxlist.innerHTML = `<button class="button is-info is-light has-text-weight-semibold my-2" id="${acct.accountId}">View Transactions</button>`;
-      // trxlist.addEventListener('click', (e) => {
-      //     sessionStorage.setItem("account", e.target.id);
-      //     window.location.href = './account.html';
-      //     console.log(`clicked "view account" for account ${e.target.id}`)})
-
+      
       row.appendChild(accountId);
       row.appendChild(amount);
       row.appendChild(type);
@@ -182,86 +233,112 @@ function addAccounts(accounts){
       acctsTable.appendChild(row);
 
 
-  }
+  // })
+}
 }
 
 
-// function addIncomeToTable(transactions){
-//   let transxTable = document.querySelector('#transactions-table tbody');
-//   transxTable.innerHTML = '';
-//   for (transx of transactions) {
-//       console.log(transx);
-
-//       let row = document.createElement('tr');
-//       let date = document.createElement('td');
-//       if (transx.resolveTime == null) {
-//           date.innerHTML = new Date(transx.requestTime).toLocaleDateString();
-//       } else {
-//           date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
-//       }
-      
-      
-//       let type = document.createElement('td');
-//       type.innerHTML = transx.description;
-//       let amount = document.createElement('td');
-//       amount.innerHTML = transx.amount;
-      
-//       let status = document.createElement('td');
-//       status.innerHTML = transx.typeName;
-      
-
-//       row.appendChild(date);
-//       row.appendChild(type);
-//       row.appendChild(amount);
-//       row.appendChild(status);
-      
-
-//       transxTable.appendChild(row);
 
 
-//   }
-// }
-
-
-
-
-
-
-
-
+function addTrx(trxs){
+  
+  let acctsTable = document.getElementById('accounts-tbody');
+  acctsTable.innerHTML = '';
   
 
+  for (trx of trxs) {
 
+      let row = document.createElement('tr');
+      
+      let resolveTime = document.createElement('td');
+      resolveTime.innerHTML = trx.resolveTime;
 
-removeButton.addEventListener('click', async (e) => {
-accountId = accountId.value;
-let email = localStorage.getItem(email)
+      let type = document.createElement('td');
+      type.innerHTML = trx.typeName;
+      
+      let amount = document.createElement('td');
+      amount.innerHTML = `$${(trx.amount/100).toFixed(2)}`
 
-let res = await fetch(`http://${url}:8080/accounts/${accountId}`, {
-  'credentials': 'include',
-  'method': 'DELETE',
-  'headers': {
-    'Content-Type': 'application/json'
-  }
-})
+      let description = document.createElement('td');
+      description.innerHTML = trx.description;
 
-if (res.status == 200) {
-  confirmation.innerHTML = ""
-  let confirmationMessage = document.createElement('p');
-  confirmationMessage.innerHTML = "Account deleted successfully!";
-  confirmationMessage.style.color = 'green';
-  confirmationMessage.style.fontWeight = 'bold';
-  confirmation.appendChild(confirmationMessage);
+      row.appendChild(resolveTime);
+      row.appendChild(type);
+      row.appendChild(amount);
+      row.appendChild(description);
+      
 
-} else if (res.status == 400) {
-  confirmation.innerHTML = ""
-  let data = await res.json();
-  for (const msg of data) {
-    let errorElement = document.createElement('p');
-    errorElement.innerHTML = msg;
-    errorElement.style.color = 'red';
-    errorElement.style.fontWeight = 'bold';
-    confirmation.appendChild(errorElement);
+      acctsTable.appendChild(row);
+
   }
 }
-});
+
+
+
+linkButton.addEventListener('click', async ()=>{
+  let email = sessionStorage.getItem("email");
+let aid = linkAccountId.value;
+  let res = await fetch(`http://${url}:8080/accounts/${aid}/users/${email}`, {
+    'credentials': 'include',
+    'method': 'PUT',
+    'headers': {
+      'Content-Type': 'application/json'}
+    })
+    let data = await res.json;
+    if(res.status == 200){
+    window.location.reload();
+    }
+    if(res.status == 400){
+      confirmationlink.innerHTML = "Account Not Found"
+      confirmationlink.style.color = "red";
+      confirmation.style.fontWeight = "bold";
+      confirmation.style.position = "center";
+    }
+    if(res.status == 404){
+      confirmationlink.innerHTML = "Enter An Account Number"
+      confirmationlink.style.color = "red";
+      confirmation.style.fontWeight = "bold";
+      confirmation.style.position = "center";
+    }
+})
+
+  
+unlinkButton.addEventListener('click', async ()=>{
+ 
+  
+let email = sessionStorage.getItem("email");
+let aid = unlinkAccountId.value;
+  let res = await fetch(`http://${url}:8080/accounts/${aid}/users/${email}`, {
+    'credentials': 'include',
+    'method': 'Delete',
+    'headers': {
+      'Content-Type': 'application/json'}
+    })
+    window.location.reload();
+})
+
+
+submitTransferButton.addEventListener('click', async ()=> {
+  let amount  = (transferAmountDollars.value);
+  let rid = receivingId.value;
+  let sid = sendingId.value;
+  let email = sessionStorage.getItem("email");
+  let res = await fetch(`http://${url}:8080/trx/accounts`, {
+    'credentials': 'include',
+    'method': 'POST',
+    'headers': {
+        'Content-Type': 'application/json'
+    },
+    'body': JSON.stringify({
+      "sendingId": sid,
+      "receivingId": rid,
+      "amount":amount,
+      "email":email
+
+      
+    })
+})
+location.reload();
+console.log(res);
+
+})

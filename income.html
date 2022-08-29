@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Home</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
+    <link rel="icon" type="image/png" href="/images/revmo-temp.png">
 
     <script defer src="./header.js"></script>
     <script defer src="./income.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
@@ -14,40 +15,39 @@
 <body>
 
 <!-- Navbar -->
-    <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
+<nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
 
-        <div class="navbar-brand">
-          <a href="./index.html" class="navbar-item">
-              <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
-          </a>
-  
-          <a class="navbar-burger" id="burger">
-              <span></span>
-              <span></span>   
-              <span></span>
-          </a> 
+  <div class="navbar-brand">
+    <a href="./index.html" class="navbar-item">
+        <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
+    </a>
+
+    <a class="navbar-burger" id="burger">
+        <span></span>
+        <span></span>   
+        <span></span>
+    </a> 
+  </div>
+
+  <div class="navbar-menu" id="nav-links">
+      <div class="navbar-end">
+          <!-- Navbar Stuff Goes Here in this format: -->
+          <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
+          <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
+
+      </div>
+      <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-info" href="/login.html" id="login-btn">
+              <strong>Log in</strong>
+            </a>
+            <a class="button is-info" id="logout-btn">
+              Log out
+            </a>
+          </div>
         </div>
-
-        <div class="navbar-menu" id="nav-links">
-            <div class="navbar-end">
-                <!-- Navbar Stuff Goes Here in this format: -->
-                <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
-                <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
-                <a class="navbar-item" id="transfer-money">Transfer Money</a>
-
-            </div>
-            <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button is-info" href="/login.html" id="login-btn">
-                    <strong>Log in</strong>
-                  </a>
-                  <a class="button is-info" id="logout-btn">
-                    Log out
-                  </a>
-                </div>
-              </div>
-        </div>
-    </nav>
+  </div>
+</nav>
 
 <!-- Main Body-->
     
@@ -63,15 +63,28 @@
       <div class="column is-2"></div>
       <div class="column is-8" id="tables-column">
         <h1 class="is-size-3">Accounts with incoming transactions</h1>
+          <p>
+            <span>
+              <label class="label">Months to Display:</label>
+            </span>
+            <span>
+              <input class="input" style="width: 10%" type="text" placeholder="3" id="months-to-display">
+            </span>
+            <span>
+              <button class="button is-primary is-light" id="refresh">Refresh</button>
+            </span>
+          </p>
+           
+          
+        
         <!-- Template for table-->
-        <!-- <table class="table has-text-centeres" id="income-table">
+        <!-- <table class="table has-text-centered is-fullwidth" id="income-table">
             <thead>
                 <tr class="has-text-centered">
-                    <th>Date</th> 
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Account</th> 
+                  <th>Year</th>  
+                  <th>Month</th> 
+                  <th>Total Income</th>
+                    
                 </tr>
             </thead>
             <tbody>

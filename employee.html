@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="has-background-grey-light"></html>>
+<html lang="en" class="has-background-grey-light"></html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <title>Add Account</title>
+    <link rel="icon" type="image/png" href="/images/revmo-temp.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
     
@@ -16,37 +17,36 @@
 
 <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
 
-    <div class="navbar-brand">
-      <a href="./index.html" class="navbar-item">
-          <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
-      </a>
+  <div class="navbar-brand">
+    <a href="./index.html" class="navbar-item">
+        <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
+    </a>
 
-      <a class="navbar-burger" id="burger">
-          <span></span>
-          <span></span>   
-          <span></span>
-      </a> 
-    </div>
+    <a class="navbar-burger" id="burger">
+        <span></span>
+        <span></span>   
+        <span></span>
+    </a> 
+  </div>
 
-    <div class="navbar-menu" id="nav-links">
-        <div class="navbar-end">
-            <!-- Navbar Stuff Goes Here in this format: -->
-            <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
-            <a class="navbar-item" id="my-account">User Page</a>
-            <a class="navbar-item" id="transfer-money">Transfer Money</a>
+  <div class="navbar-menu" id="nav-links">
+      <div class="navbar-end">
+          <!-- Navbar Stuff Goes Here in this format: -->
+          <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
+          <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
 
-        </div>
-        <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-info" href="/login.html" id="login-btn">
-                <strong>Log in</strong>
-              </a>
-              <a class="button is-info" id="logout-btn">
-                Log out
-              </a>
-            </div>
+      </div>
+      <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-info" href="/login.html" id="login-btn">
+              <strong>Log in</strong>
+            </a>
+            <a class="button is-info" id="logout-btn">
+              Log out
+            </a>
           </div>
-    </div>
+        </div>
+  </div>
 </nav>
 
 
@@ -58,7 +58,7 @@
 
   <div class="column is-one-fifth">
     <form class="box is-shadowless ml-5 my-5">
-        <h2 class="title is-size-4">Active User</h2>
+        <h2 class="title is-size-4">Set Active User</h2>
 
 
         <div class="field">
@@ -82,13 +82,14 @@
 
       <form class="box is-shadowless ml-5 my-5">
         <table class="table is-fullwidth is-hoverable">
-          <h2 class="title is-size-4">Accounts</h2>
+          <h2 id="accounts-title" class="title is-size-4">Accounts</h2>
+          <h2 id="back-btn" class="title is-size-6"></h2>
             <thead is-dark>
                 <tr>
-                  <th>ID</th>
-                  <th>Balance</th>
-                  <th>Type</th>
-
+                  <th id="th-1">ID</th>
+                  <th id="th-2">Balance</th>
+                  <th id="th-3">Type</th>
+                  <th id="th-4"></th>
                 </tr>
             </thead>
             <tbody name= "transactions-table tbody" id="accounts-tbody">
@@ -115,7 +116,7 @@
     <div class="column is-one-third">
         <form class="box is-shadowless ml-5 my-5">
             <h2 class="title is-size-4 has-text-centered">Add Account</h2>
-            <div id="error-messages"></div>
+            <div id="create-message"></div>
             <div class="field">
                 <label id = "account-type-id" class="label">Account Type</label>
                 <div class="control">
@@ -160,68 +161,56 @@
 
     <div class="column is-one-third">
       <form class="box is-shadowless my-5">
-        <h2 class="title is-size-4 has-text-centered">Transaction</h2>
+        <h2 class="title is-size-4 has-text-centered">Transfer Between Accounts</h2>
         <div id="error-messages"></div>
 
 
         <div class="field">
           <label class="label">Sending ID</label>
           <div class="control">
-            <input class="input" type="number" placeholder="Enter sending ID" id="">
+            <select class="input" id="transfer-sending-id"></select>
           </div>
       </div>
       <div class="field">
         <label class="label">Receiving ID</label>
         <div class="control">
-          <input class="input" type="number" placeholder="Enter receiving ID" id="">
+          <select class="input" id="transfer-receiving-id"></select>
         </div>
       </div>
 
 
         <div class="field">
-            <label class="label">Amount</label>
+            <label class="label">Amount (in cents)</label>
             <div class="control">
-              <input class="input" type="number" placeholder="Enter amount" id="">
+              <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-dollars">
             </div>
         </div>
-        <div class="field">
-          <label id = "" class="label">Account Type</label>
-          <div class="control">
-            <label class="radio">
-              <input type="radio" name="account-type-id" value="1">
-              Chequing (1)
-            </label>
-            <label class="radio">
-              <input type="radio" name="account-type-id" value="2">
-              Savings (2)
-            </label>
-          </div>
-      </div>
+    
         <div>
-            <a class="button is-info" id="" type="submit" >
+            <a class="button is-info" id="submit-transfer-btn" type="submit" >
               Submit
             </a>
         </div>
     </form>
     </div>
 
-    <!-- remove account -->
+    <!-- link/unlink account -->
 
     <div class="column is-one-third">
       <form class="box is-shadowless mr-5 my-5">
         <h2 class="title is-size-4 has-text-centered">Link Account</h2>
-        <div id="error-messages"></div>
+        <div id="error-messages-link"></div>
 
 
         <div class="field">
             <label class="label">Account ID</label>
             <div class="control">
-              <input class="input" type="number" placeholder="Account ID" id="link-account-id">
+              <input class="input" type="text" placeholder="Account ID" id="link-account-id">
             </div>
         </div>
 
         <div>
-            <a class="button is-info" id="remove-btn" type="submit" >
+            <a class="button is-info" id="link-btn" type="submit" >
               Link Account
             </a>
         </div>
@@ -235,12 +224,12 @@
             <div class="field">
                 <label class="label">Account ID</label>
                 <div class="control">
-                  <input class="input" type="number" placeholder="Account ID" id="unlink-account-id">
+                  <select class="input"id="unlink-account-id"></select>
                 </div>
             </div>
 
             <div>
-                <a class="button is-info" id="remove-btn" type="submit" >
+                <a class="button is-info" id="unlink-btn" type="submit" >
                   Unlink Account
                 </a>
             </div>

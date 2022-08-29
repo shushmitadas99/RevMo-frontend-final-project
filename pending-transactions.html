@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User Info</title>
+
+    <title>Pending Transactions</title>  <!-- CHANGE TITLE TO MATCH PAGE NAME-->
     <link rel="icon" type="image/png" href="/images/revmo-temp.png">
+
     <script defer src="./header.js"></script>
-    <script defer src="./edit-user-info.js"></script>
+    <script defer src="./pending-transactions.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
@@ -48,36 +50,49 @@
 </nav>
 
 <!-- Main Body-->
-    <div></div>
+    
     <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
       adding 'is-half' or 'is-6' to the class does the same thing
       so class="column is-half" could take up half the screen
-      very useful for centering things on the screen (empty column on each side with active column in the middle)-->
+      very useful for centering things on the screen (empty column on each side with active column in the middle)
+    
+      When you make a box, to separate it from the header, add 'my-4' to the class list-->
 
     <div class="columns">
-      <div class="column is-one-third-desktop is-quarter-tablet"></div>
-      <div class="column is-one-third-desktop is-half-tablet">
-        <div class="box my-6">
-            <h2 class="is-size-4 has-text-centered">Edit User Info</h2>
-            <form>
-              <div class="field">
-                <label for="first-name" class="label">First Name</label>
-                <input type="text" class="input" id="first-name-input" />
-              </div>
-              <div class="field">
-                <label for="last-name" class="label">Last Name</label>
-                <input type="text" class="input" id="last-name-input">
-              </div>
-                <div class="field">
-                    <label for="phone-number" class="label">Phone Number</label>
-                    <input type="text" class="input" id="phone-input" />
-                </div>
-                <button class="button is-info" id="submit">Submit Changes</button>
-            </form>
+      <div class="column"></div>
+
+      <div class="column is-three-quarters">
+        <div class="box m-4" id="tables-column">
+          <h1 class="is-size-3">Pending Transactions</h1>
+            <!-- <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Date Requested</th>
+                        <th>Amount</th>
+                        <th>Requested By</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="pending-transactions-table">
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>
+                      <button class="button is-primary">Approve</button>
+                      <button class="button is-danger">Deny</button>
+                    </th>
+                  </tr>
+
+                </tbody>
+            </table> -->
+
         </div>
-        <div class="is-danger has-text-centered" id="error-msgs"></div>
       </div>
-      <div class="column is-one-third-desktop is-quarter-tablet"></div>
+
+      <div class="column"></div>
     </div>
     
 </body>
