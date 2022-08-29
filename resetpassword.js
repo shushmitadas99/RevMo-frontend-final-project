@@ -5,7 +5,8 @@ document.getElementById("reset_password").addEventListener("click", resetPasswor
 
 async function resetPassword() { 
     try {
-        let res = await fetch(`http://localhost:8080/resetpassword`,{
+       if (passwordInput==cnfrmPasswordInput)
+    {let res = await fetch(`http://localhost:8080/resetpassword`,{
             method:"POST", 
             method: "PUT",
             headers: {
@@ -32,6 +33,8 @@ async function resetPassword() {
             para.style.color = "black";
             para.innerHTML = data.message;
 
+        }}else{
+            alert("Password does not match!")
         }
     } catch (error){
         console.log(error);
