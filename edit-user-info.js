@@ -20,7 +20,7 @@ window.addEventListener('load', async () => {
             }});
     
             let data = await res.json();
-            console.log(data);
+            // console.log(data);
             // phone.attributes('placeholder', `${data.phoneNumber}`);
 
             let prevPhone = document.createAttribute("value");
@@ -67,7 +67,6 @@ submitBtn.addEventListener('click', async (e) => {
     })
 
     if (res.status == 201) {
-        sessionStorage.setItem("email", emailInput);
         window.location.href = '/user-page.html';
     }
     else if (res.status = 400){
