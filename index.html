@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="has-background-grey-light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +11,13 @@
     <script defer src="./header.js"></script>
     <script defer src="./index.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body id="body">
 
 <!-- Navbar -->
-    <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
+    <nav  class="navbar has-shadow is-inverted" role="navigation" aria-label="main navigation">
 
         <div class="navbar-brand">
           <a href="./index.html" class="navbar-item">
@@ -50,7 +52,19 @@
     </nav>
 
 <!-- Main Body-->
-    <h1 class="is-size-1 has-text-centered">Hello World</h1>
+  <section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        The new standard in Online Banking
+        </h1>
+        <br>
+      <h2 class="subtitle">
+        Where you can manage your accounts and send money with just a click of a button.
+      </h2>
+    </div>
+  </div>
+    
     
     <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
       adding 'is-half' or 'is-6' to the class does the same thing
@@ -59,11 +73,10 @@
     
       When you make a box, to separate it from the header, add 'my-4' to the class list-->
 
-    <div class="columns">
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
-    </div>
-    
+   
+    <!-- </section> -->
+    <!-- <div>
+
+    </div> -->
 </body>
 </html>
