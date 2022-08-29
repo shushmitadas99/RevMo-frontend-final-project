@@ -1,6 +1,17 @@
+#body {
+  overflow-y: hidden !important ;
+  background-image: url('https://images.unsplash.com/photo-1577312891106-b39a179bfab6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80') !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Verdana, sans-serif;
+}
 body {
   overflow-y: hidden !important ;
-  background-image: url('https://images.unsplash.com/photo-1577915207354-8f266a3fc016?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80') !important;
+  background-image: url('https://images.unsplash.com/photo-1444090542259-0af8fa96557e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80') !important;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -36,10 +47,14 @@ body {
   .sign_up{
     height:auto; 
     padding:3px 0; 
+    color:azure;
   }
  nav{
   background-color: rgba(255, 255, 255, 0.1);
  }
  .label{
+  text-align: left;
+ }
+ #forgot{
   text-align: left;
  }

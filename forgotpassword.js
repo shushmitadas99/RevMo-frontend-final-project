@@ -4,7 +4,7 @@ document.getElementById("email_submit").addEventListener("click", forgotEmail);
 
 async function forgotEmail() { 
     try {
-        let res = await fetch(`http://localhost:6060/forgotpassword`,{
+        let res = await fetch(`http://localhost:8080/forgotpassword`,{
             method:"POST",
             headers: {
                 "Content-Type" : "application/json"
