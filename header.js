@@ -15,8 +15,24 @@ burgerIcon.addEventListener('click', () => {
     navbarMenu.classList.toggle('is-active')
 });
 
+const access = (e) => window.location.href.includes(e);
+const allowed = ["/index.html", "/login.html"]
 
 window.addEventListener('load', (e) => {
+    // let loggedIn = await fetch(`http://${url}:8080/logged-in-user`, {
+    //     'credentials': 'include',
+    //     'method': 'GET',
+    //     'headers': {
+    //         'Access-Control-Allow-Origin':'*',
+    //     }
+    // })
+    console.log("allowed.some(access)", allowed.some(access));
+    // if (loggedIn.status == 404 && !allowed.some(access)){ //not logged in on backend, not on public page
+    //     sessionStorage.clear();
+    //     window.location.href = "./index.html";
+
+    // }
+    console.log(window.location.href.includes("/index.html"))
     console.log('in window load block header.js');
     if (sessionStorage.getItem('userId') != null){
         console.log('userId in session');

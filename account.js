@@ -17,6 +17,7 @@ let currentMonthIncome = document.getElementById('current-month-total-income');
 let allTimeIncome = document.getElementById('all-time-total-income');
 let errMsgs = document.getElementById('error-messages');
 let account = sessionStorage.getItem("account");
+let xferDiv = document.getElementById('xfer-between-accounts-div');
 
 
 
@@ -27,105 +28,109 @@ let account = sessionStorage.getItem("account");
 
 window.addEventListener('load', async () => {
 
-  try {
+    try {
 
-    let res1 = await fetch(`http://${url}:8080/user`, {   // get user info 
-      'credentials': 'include',
-      'method': 'GET',
-      'headers': {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
+        let res1 = await fetch(`http://${url}:8080/user`, {   // get user info 
+        'credentials': 'include',
+        'method': 'GET',
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
 
-      }
-    });
-    if (res1.status == 200) {
-      let data1 = await res1.json();
-      for (let i = 0; i < (data1.accounts).length; i++) {
+        }
+        });
+        if (res1.status == 200) {
+        let data1 = await res1.json();
+        for (let i = 0; i < (data1.accounts).length; i++) {
 
-        let newOption = document.createElement('option');
-        newOption.text = data1.accounts[i].accountId;
-        newOption.value = data1.accounts[i].accountId;
-        accountDropdown.appendChild(newOption)
-      }
+            let newOption = document.createElement('option');
+            newOption.text = data1.accounts[i].accountId;
+            newOption.value = data1.accounts[i].accountId;
+            accountDropdown.appendChild(newOption)
+        }
+        }
+
+        if (sessionStorage.getItem('userId')) {
+            let res = await fetch(`http://${url}:8080/accounts/${account}`, { // get account
+                'credentials': 'include',
+                'method': 'GET',
+                'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+                }
+            });
+            if (res.status == 200) {
+                let data = await res.json();
+                acctNum.innerHTML = data.accountId;
+                acctType.innerHTML = data.typeName;
+                acctAmount.innerHTML = `\$${numWCommas((data.balance / 100).toFixed(2))}`;
+                for (user of data.accountOwners) {
+                    let cell = document.createElement('p');
+                    cell.innerHTML = user;
+                    userList.appendChild(cell);
+                }
+                
+                let allIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}`, {
+                    'credentials': 'include',
+                    'method': 'GET',
+                    'headers': {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                    }
+                });
+                if (allIncome.status == 200) {
+                    let allIncomeRes = await allIncome.json();
+                    console.log("all income", numWCommas((allIncomeRes / 100).toFixed(2)))
+                    allTimeIncome.innerText = "";
+                    allTimeIncome.innerText = `\$${numWCommas((allIncomeRes / 100).toFixed(2))}`
+                }
+            
+            
+                // fetch and input income for account for the current month
+                let monthIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}/0/0`, {
+                    'credentials': 'include',
+                    'method': 'GET',
+                    'headers': {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+            
+                    }
+                });
+                if (monthIncome.status == 200) {
+                    let monthIncomeRes = await monthIncome.json();
+                    console.log("month income", numWCommas((monthIncomeRes / 100).toFixed(2)));
+                    currentMonthIncome.innerText = "";
+                    currentMonthIncome.innerText = `\$${numWCommas((monthIncomeRes / 100).toFixed(2))}`;
+                }
+            
+                //Fetch transactions
+            
+                let transx = await fetch(`http://${url}:8080/trx/account/${account}`, { //--------------------!!!------------
+                    'credentials': 'include',
+                    'method': 'GET',
+                    'headers': {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                    }
+                });
+                if (transx.status == 200) {
+                    let transactions = await transx.json();
+            
+                    addIncomeToTable(transactions);
+                }
+            } else {
+                xferDiv.innerHTML = "Something has gone wrong. Please return to your user page."
+            }
+
+        }
+
+
+        
+    } catch (err) {
+        userList.innerHTML = "";
+        userList.innerHTML = "You are not logged in!";
+        console.log(err);
     }
-
-    if (sessionStorage.getItem('userId')) {
-      let res = await fetch(`http://${url}:8080/accounts/${account}`, { // get account
-        'credentials': 'include',
-        'method': 'GET',
-        'headers': {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-        }
-      });
-      if (res.status == 200) {
-        let data = await res.json();
-        acctNum.innerHTML = data.accountId;
-        acctType.innerHTML = data.typeName;
-        acctAmount.innerHTML = `\$${numWCommas((data.balance / 100).toFixed(2))}`;
-        for (user of data.accountOwners) {
-          let cell = document.createElement('p');
-          cell.innerHTML = user;
-          userList.appendChild(cell);
-        }
-      }
-
-      // Commented out until endpoint is replaced
-
-      let allIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}`, {
-        'credentials': 'include',
-        'method': 'GET',
-        'headers': {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-        }
-      });
-      if (allIncome.status == 200) {
-        let allIncomeRes = await allIncome.json();
-        console.log("all income", numWCommas((allIncomeRes / 100).toFixed(2)))
-        allTimeIncome.innerText = "";
-        allTimeIncome.innerText = `\$${numWCommas((allIncomeRes / 100).toFixed(2))}`
-      }
-
-
-      // fetch and input income for account for the current month
-      let monthIncome = await fetch(`http://${url}:8080/trx/income-by-account/${account}/0/0`, {
-        'credentials': 'include',
-        'method': 'GET',
-        'headers': {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-
-        }
-      });
-      if (monthIncome.status == 200) {
-        let monthIncomeRes = await monthIncome.json();
-        console.log("month income", numWCommas((monthIncomeRes / 100).toFixed(2)));
-        currentMonthIncome.innerText = "";
-        currentMonthIncome.innerText = `\$${numWCommas((monthIncomeRes / 100).toFixed(2))}`;
-      }
-
-      //Fetch transactions
-
-      let transx = await fetch(`http://${url}:8080/trx/account/${account}`, { //--------------------!!!------------
-        'credentials': 'include',
-        'method': 'GET',
-        'headers': {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-        }
-      });
-      if (transx.status == 200) {
-        let transactions = await transx.json();
-
-        addIncomeToTable(transactions);
-      }
-    }
-  } catch (err) {
-    userList.innerHTML = "";
-    userList.innerHTML = "You are not logged in!";
-    console.log(err);
-  }
 })
 
 function addIncomeToTable(transactions) {

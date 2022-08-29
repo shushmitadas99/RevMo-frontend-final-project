@@ -15,40 +15,39 @@
 <body>
 
 <!-- Navbar -->
-    <nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
+<nav class="navbar has-shadow is-light" role="navigation" aria-label="main navigation">
 
-        <div class="navbar-brand">
-          <a href="./index.html" class="navbar-item">
-              <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
-          </a>
-  
-          <a class="navbar-burger" id="burger">
-              <span></span>
-              <span></span>   
-              <span></span>
-          </a> 
+    <div class="navbar-brand">
+      <a href="./index.html" class="navbar-item">
+          <img src="./images/revmo-temp.png" alt="site-logo" style="max-height: 75px" class="py-3">
+      </a>
+
+      <a class="navbar-burger" id="burger">
+          <span></span>
+          <span></span>   
+          <span></span>
+      </a> 
+    </div>
+
+    <div class="navbar-menu" id="nav-links">
+        <div class="navbar-end">
+            <!-- Navbar Stuff Goes Here in this format: -->
+            <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
+            <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
+
         </div>
-
-        <div class="navbar-menu" id="nav-links">
-            <div class="navbar-end">
-                <!-- Navbar Stuff Goes Here in this format: -->
-                <a href="/registration.html" class="navbar-item" id="create-account">Create Account</a>
-                <a href="/user-page.html" class="navbar-item" id="my-account">User Page</a>
-                <a class="navbar-item" id="transfer-money">Transfer Money</a>
-
+        <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-info" href="/login.html" id="login-btn">
+                <strong>Log in</strong>
+              </a>
+              <a class="button is-info" id="logout-btn">
+                Log out
+              </a>
             </div>
-            <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button is-info" href="/login.html" id="login-btn">
-                    <strong>Log in</strong>
-                  </a>
-                  <a class="button is-info" id="logout-btn">
-                    Log out
-                  </a>
-                </div>
-              </div>
-        </div>
-    </nav>
+          </div>
+    </div>
+</nav>
 
 <!-- Main Body-->
     
@@ -104,51 +103,53 @@
                        
                       
                     </div>
-                    <form class="box is-shadowless my-5">
-                      <h2 class="title is-size-4 has-text-centered">Transfer Between Accounts</h2>
-                      <div id="error-messages"></div>
-              
-              
-                      
-                    <div class="field">
-                      <label class="label">Receiving ID</label>
-                      <div class="control">
-                        <select class="input" id="transfer-receiving-id">
-                        </select>
-                        </div>
+                    <div id="xfer-between-accounts-div">
+                        <form class="box is-shadowless my-5">
+                            <h2 class="title is-size-4 has-text-centered">Transfer Between Accounts</h2>
+                            <div id="error-messages"></div>
+                    
+                    
+                            
+                            <div class="field">
+                            <label class="label">Receiving ID</label>
+                            <div class="control">
+                                <select class="input" id="transfer-receiving-id">
+                                </select>
+                                </div>
+                            </div>
+                    
+                    
+                            <div class="field">
+                                <label class="label">$(00.00) Amount</label>
+                                <div class="control">
+                                    <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-dollars">
+                                </div>
+                            </div>
+                            <!-- <div class="field">
+                                <label class="label">Amount (in pennies)</label>
+                                <div class="control">
+                                <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-pennies">
+                                </div>
+                            </div> -->
+                            <!-- <div class="field">
+                                <label class="label">Amount</label>
+                                <div class="control">
+                                <select class="dropdown" style="width: 100%; height: 30px" type="text" id="transfer-type">
+                                    <option>Select Type</option>
+                                <option value="1">Income</option>
+                                <option value="2">Transfer</option>
+                                <option value="3">Deposit</option>
+                                </select>
+                                </div> -->
+                            <!-- </div> -->
+                            <div>
+                                <a class="button is-info" id="submit-transfer-btn" type="submit" >
+                                    Submit
+                                </a>
+                            </div>
+                        </form>
                     </div>
-              
-              
-                      <div class="field">
-                          <label class="label">$(00.00) Amount</label>
-                          <div class="control">
-                            <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-dollars">
-                          </div>
-                      </div>
-                      <!-- <div class="field">
-                        <label class="label">Amount (in pennies)</label>
-                        <div class="control">
-                          <input class="input" type="number" placeholder="Enter amount" id="transfer-amount-pennies">
-                        </div>
-                    </div> -->
-                      <!-- <div class="field">
-                        <label class="label">Amount</label>
-                        <div class="control">
-                          <select class="dropdown" style="width: 100%; height: 30px" type="text" id="transfer-type">
-                            <option>Select Type</option>
-                          <option value="1">Income</option>
-                          <option value="2">Transfer</option>
-                          <option value="3">Deposit</option>
-                          </select>
-                        </div> -->
-                    <!-- </div> -->
-                      <div>
-                          <a class="button is-info" id="submit-transfer-btn" type="submit" >
-                            Submit
-                          </a>
-                      </div>
-                  </form>
-          
+            
 
                
 
