@@ -10,11 +10,16 @@
 
     <script defer src="./header.js"></script>
     <script defer src="./index.js"></script> <!-- CHANGE ./index.js TO WHATEVER YOUR PAGE SCRIPT IS-->
+    <script defer src="./login.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/style.css">
 </head>
+
+<body background="./images/background.png"></bodybackground>>
+
 <body id="body">
+
 
 <!-- Navbar -->
     <nav  class="navbar has-shadow is-inverted" role="navigation" aria-label="main navigation">
@@ -66,6 +71,7 @@
   </div>
     
     
+    
     <!-- Bulma uses columns out of 12. See https://bulma.io/documentation/columns/sizes/
       adding 'is-half' or 'is-6' to the class does the same thing
       so class="column is-half" could take up half the screen
@@ -73,10 +79,42 @@
     
       When you make a box, to separate it from the header, add 'my-4' to the class list-->
 
+
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <form class="box is-shadowless my-6">
+          <h2 class="title is-size-4">Login</h2>
+          <div id="error-messages" class="has-text-danger"></div>
+          <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Email" id="email-login-input">
+              </div>
+          </div>
+
+          <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input class="input" type="password" placeholder="Password" id="password-login-input">
+              </div>
+          </div>
+          <div class="field">
+              <div class="control">
+                <button id="login-btn-2" class="button is-link">Login</button>
+              </div>
+          </div>
+      </form>
+      </div>
+      <div class="column"></div>
+      <div class="column"></div>
+    </div>
+    
+
    
     <!-- </section> -->
     <!-- <div>
 
     </div> -->
+
 </body>
 </html>
