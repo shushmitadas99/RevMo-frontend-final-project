@@ -89,7 +89,7 @@ async function addTableForAccount(accounts) {
                 // console.log("status", income.status)
                 
                 
-                if(incomeData > -1) {
+                if(incomeData > 0) {
                     
                    
                     
