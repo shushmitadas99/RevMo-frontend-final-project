@@ -71,12 +71,12 @@ async function addTableForAccount(accounts) {
                 let thisMonth = month-i-1;
                 let thisYear = year;
                 console.log("thisMonth", thisMonth, "thisYear", thisYear)
-                if (thisMonth <= 0 ){
+                if (thisMonth < 0 ){
                     thisMonth = 12+thisMonth;
                     thisYear--;
                 }
             
-                let income = await fetch (`http://${url}:8080/trx/income-by-account/${aId}/${thisMonth}/${year}`, {
+                let income = await fetch (`http://${url}:8080/trx/income-by-account/${aId}/${thisMonth+1}/${year}`, {
                     'credentials': 'include',
                     'method': 'GET',
                     'headers': {
@@ -96,7 +96,7 @@ async function addTableForAccount(accounts) {
 
                     let row = document.createElement('tr');
                     let yearCell = document.createElement('td');
-                    yearCell.innerHTML = `<p>${year}</p>`;
+                    yearCell.innerHTML = `<p>${thisYear}</p>`;
                     let monthCell = document.createElement('td');
                     monthCell.innerHTML = `${months[thisMonth]}`;
                     let income = document.createElement('td');
