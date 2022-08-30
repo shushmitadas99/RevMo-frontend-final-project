@@ -150,14 +150,11 @@ function addIncomeToTable(transactions) {
     } else {
       date.innerHTML = new Date(transx.resolveTime).toLocaleDateString();
     }
-
+console.log(transx);
 
     // set row to green if income, yellow if expense
-    if (acctNum.textContent == transx.receivingId) {
-      row.setAttribute("class", "has-background-primary-light");
-    } else {
-      row.setAttribute("class", "has-background-warning-light")
-    }
+    
+    
 
     // set type
     let type = document.createElement('td');
@@ -170,6 +167,14 @@ function addIncomeToTable(transactions) {
     //set status
     let status = document.createElement('td');
     status.innerHTML = transx.typeName;
+
+    if (transx.typeName == "DECLINED"){
+        row.setAttribute("class", "has-background-danger-light");
+    } else if (acctNum.textContent == transx.receivingId) {
+        row.setAttribute("class", "has-background-primary-light");
+    } else {
+        row.setAttribute("class", "has-background-warning-light")
+    }
 
     //append cells to row
     row.appendChild(date);
